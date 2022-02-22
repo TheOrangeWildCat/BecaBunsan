@@ -1,0 +1,3 @@
+
+El programa busca el archivo "buscaminas_prueba1.txt" obtiene los datos y en función de los dígitos especificados en la primera línea del archivo.txt construye el tablero,
+esta versión del programa está limitado a buscaminas de dimensiones menores o iguales a 9
