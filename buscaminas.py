@@ -1,63 +1,69 @@
-m = 0
-n= 0
-tablero = []
-resultados = []
-b = ''
+import sys
 
-#* se leen los datos desde el archivo.txt
-with open("buscaminas_prueba1.txt","r") as archivo:
-    for linea in archivo:
-        m = linea.replace(" ","")
-        m = list(m.replace('\n',""))
-        tablero.append(m)
-        
-#* se crea el tablero de resultados de acuerdo al tamaño especificado en el archivo.txt       
-m = int(tablero[0][0])
-n = int(tablero[0][1])
-resultados = [[0 for f in range (m)] for c in range (n) ]
-del tablero[:1]
 
-#* imprimir el tablero 
-print('tablero')
-print(m,'x',n)
-for i in range (m):
+def resultados(tablero , m , n):
+    resultados = [[0 for c in range (n)] for f in range (m) ]
+    for fila in range (m):
+        for columna in range (n):
+            if tablero[fila][columna] == '*':
+                resultados[fila][columna] = '*'
+    #* se sumara 1 a las ubicaciones adyacentes en la fila anterior a la mina
+                if((fila-1)>=0 and (columna-1) >=0 and (resultados[fila-1][columna-1]) != '*'):
+                    resultados[fila-1][columna-1] += 1
+                if((fila-1)>=0 and (columna) >=0 and (resultados[fila-1][columna]) != '*'):
+                    resultados[fila-1][columna] += 1
+                if((fila-1)>=0 and (columna+1) <=(n-1) and (resultados[fila-1][columna+1]) != '*'):
+                    resultados[fila-1][columna+1] += 1
+                
+    #* se sumara 1 a las ubicaciones adyacentes en la misma fila de la mina
+                if((fila)>=0 and (columna-1) >=0 and (resultados[fila][columna-1]) != '*'):
+                    resultados[fila][columna-1] += 1
+                if((fila)>=0 and (columna+1) <=(n-1) and (resultados[fila][columna+1]) != '*'):
+                    resultados[fila][columna+1] += 1
+    #* se sumara 1 a las ubicaciones adyacentes en la fila posterior a la mina
+                if((fila+1)<=(m-1) and (columna-1) >=0 and (resultados[fila+1][columna-1]) != '*' ):
+                    resultados[fila+1][columna-1] += 1
+                if((fila+1)<=(m-1) and (columna) >=0 and (resultados[fila+1][columna]) != '*'):
+                    resultados[fila+1][columna] += 1
+                if((fila+1)<=(m-1) and (columna+1) <=(n-1) and (resultados[fila+1][columna+1]) != '*'):
+                    resultados[fila+1][columna+1] += 1
+    return printTablero('resultados',resultados,m,n)
+
+def printTablero(tabla ,tablero,  m,  n):
+    print(tabla,m,'x',n)
+    b=''
+    for i in range (m):
         for j in range (n):
             b+= str(tablero[i][j]) + '\t'
         print(b)
         b=''
 
-#* se ubica en donde hay una mina y se suma 1 en los lugares adyacentes a ella
-for fila in range (m):
-    for columna in range (n):
-        if tablero[fila][columna] == '*':
-            resultados[fila][columna] = '*'
-#* se sumara 1 a las ubicaciones adyacentes en la fila anterior a la mina
-            if((fila-1)>=0 and (columna-1) >=0):
-                resultados[fila-1][columna-1] += 1
-            if((fila-1)>=0 and (columna) >=0):
-                resultados[fila-1][columna] += 1
-            if((fila-1)>=0 and (columna+1) <=(n-1)):
-                resultados[fila-1][columna+1] += 1
-#* se sumara 1 a las ubicaciones adyacentes en la misma fila de la mina
-            if((fila)>=0 and (columna-1) >=0):
-                resultados[fila][columna-1] += 1
-            if((fila)>=0 and (columna+1) <=(n-1)):
-                resultados[fila][columna+1] += 1
-#* se sumara 1 a las ubicaciones adyacentes en la fila posterior a la mina
-            if((fila+1)<=(m-1) and (columna-1) >=0):
-                resultados[fila+1][columna-1] += 1
-            if((fila+1)<=(m-1) and (columna) >=0):
-                resultados[fila+1][columna] += 1
-            if((fila+1)<=(m-1) and (columna+1) <=(n-1)):
-                resultados[fila+1][columna+1] += 1
+def obtenerDatos(ruta):
+    data = []
+    tamaño = []
+    tablero = []
+    cont = 0
+    with open(ruta,"r") as archivo:
+        for linea in archivo:
+            if cont == 0:
+                tamaño = linea.split(maxsplit=1)
+                cont +=1
+            else:    
+                lista = list(linea.replace('\n',""))
+                tablero.append(lista)
+    data.append(tablero)
+    data.append(tamaño)
+    return data
 
-#* se imprime la tabla con los resultados obtenidos
-print('resultados')
-for i in range (m):
-        for j in range (n):
-            b+= str(resultados[i][j]) + '\t'
-        print(b)
-        b=''
+def main():
+    ruta =str(sys.argv[1])
+    data = obtenerDatos(ruta)
+    m = int(data[1][0])
+    n = int(data[1][1])
+    tablero = data[0]
+    printTablero('tablero',tablero, m, n)
+    resultados(tablero,m,n)
 
-
-input('presiona una tecla para salir')
+if __name__ == "__main__":
+   main()
+   
