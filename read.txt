@@ -1,3 +1,5 @@
-
+22/02/22
+ahora el programa se puede ejecutar desde linea de comandos y agregar como argumento el archivo a provar, el archivo ahora puede contener cualquier dimension
+21/02/22
 El programa busca el archivo "buscaminas_prueba1.txt" obtiene los datos y en función de los dígitos especificados en la primera línea del archivo.txt construye el tablero,
 esta versión del programa está limitado a buscaminas de dimensiones menores o iguales a 9
