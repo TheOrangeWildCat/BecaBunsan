@@ -11,7 +11,6 @@ def toListEstaciones(coordenadas, diccionario):
             print('\t',diccionario[coordenadas],'\t', coordenadas)
 
 def toDict(estaciones):
-    lista = []
     diccionario = {}
     key = ''
     clave = ''
@@ -34,7 +33,6 @@ def resultado(tree):
     estaciones = tree.xpath(query2)   
     dictEstaciones = toDict(estaciones)
     # print(dictEstaciones)
-    e = 0
     for linea in (lineas):
         if 'name' == (linea.tag):
             print(linea.text)
@@ -43,7 +41,6 @@ def resultado(tree):
          
 def main():
     rutaXml = str(sys.argv[1])
-    # query = str(sys.argv[2])
     tree = etree.parse(rutaXml)
     resultado(tree)
 
