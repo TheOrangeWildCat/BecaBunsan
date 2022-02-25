@@ -5,6 +5,7 @@
 <book>
   <title lang="en">Harry Potter</title>
   <price>29.99</price>
+  <price>50</price>
 </book>
 
 <book>

@@ -9,7 +9,7 @@ def resultado(tree,query):
 def main():
     rutaXml = str(sys.argv[1])
     query = str(sys.argv[2])
-    tree = etree.parse(rutaXml)
+    tree = etree.ElementTree(rutaXml)
     resultado(tree, query)
 
 if __name__ == "__main__":
