@@ -1,7 +1,6 @@
 from lxml import etree
 import sys
 
-
 def toListEstaciones(coordenadas, diccionario):
     coo = str(coordenadas).replace(' ','')
     listaCoordenadas = list(coo.split('\n'))
@@ -9,7 +8,6 @@ def toListEstaciones(coordenadas, diccionario):
     for coordenadas in listaCoordenadas:
         coo = coordenadas.replace(' ','')
         if coo in diccionario:
-            
             print('\t',diccionario[coordenadas],'\t', coordenadas)
 
 def toDict(estaciones):
@@ -29,11 +27,6 @@ def toDict(estaciones):
             c = 0
     return diccionario
 
-
-
-
-    
-
 def resultado(tree):
     query = '//Document/Folder[1]/Placemark/name | //Document/Folder/Placemark/LineString/coordinates'
     query2 = '//Document/Folder[2]/Placemark/name | //Document/Folder[2]/Placemark/Point/coordinates'
@@ -48,17 +41,6 @@ def resultado(tree):
         else:
             toListEstaciones(linea.text,dictEstaciones)
          
-        
-    
-        
-           
-
-
-    # for linea in (lineas):
-    #     print(linea.text)
-
-        # coordenadas = tree.xpath('/Document/Folder/Placemark/LineString/coordinates')
-
 def main():
     rutaXml = str(sys.argv[1])
     # query = str(sys.argv[2])
