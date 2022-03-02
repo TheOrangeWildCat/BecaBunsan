@@ -1,0 +1,33 @@
+#Enum.split()
+texto = ["Hola", "me", "llamo", "Angel"]
+Enum.split(texto,-3)
+
+
+#Enum.sort_by()
+productos = [
+  %{ producto: "chocolate", precio: 5},
+  %{ producto: "chicle", precio: 1},
+  %{ producto: "mazapan", precio: 8},
+  %{ producto: "paleta tupsi", precio: 4}
+]
+
+#ordena los caramelos por precio
+Enum.sort_by(productos, &(&1.precio), :desc)
+
+
+#Enum.all?()
+
+numeros = [3,4,5,6,7]
+Enum.all?(numeros, fn x -> x>2 end)
+Enum.all?(numeros, fn x -> x/3 >2 end)
+
+#Enum.zip()
+dulces = ["choolate","chicle", "mazapan", "paleta"]
+precios = [5,1,8
+Enum.zip(dulces,precios)
+
+
+#Enum.zip_with()
+dulces = ["choolate","chicle", "mazapan", "paleta"]
+precios = [5,1,8,4]
+Enum.zip_with(dulces,precios, fn x,y -> {x , y} end)
