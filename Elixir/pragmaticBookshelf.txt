@@ -11,8 +11,6 @@ orders = [
   %{ id: 120, ship_to: :NC, net_amount: 50.00 }
 ]
 
-
-
 defmodule ApplyTaxes do
   def tax(rates, orders) do
     Enum.map(orders, fn x ->
