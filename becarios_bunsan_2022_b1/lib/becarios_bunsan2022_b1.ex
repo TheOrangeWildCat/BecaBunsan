@@ -1,6 +1,6 @@
-defmodule BecariosBunsan2020B1 do
+defmodule BecariosBunsan2022B1 do
   @moduledoc """
-  Documentation for `BecariosBunsan2020B1`.
+  Documentation for `BecariosBunsan2022B1`.
   """
 
   @doc """
@@ -8,7 +8,7 @@ defmodule BecariosBunsan2020B1 do
 
   ## Examples
 
-      iex> BecariosBunsan2020B1.hello()
+      iex> BecariosBunsan2022B1.hello()
       :world
 
   """

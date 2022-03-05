@@ -1,9 +1,9 @@
-defmodule BecariosBunsan2020B1.MixProject do
+defmodule BecariosBunsan2022B1.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :becarios_bunsan_2020_b1,
+      app: :becarios_bunsan_2022_b1,
       version: "0.1.0",
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,

@@ -20,7 +20,7 @@ erl_crash.dump
 *.ez
 
 # Ignore package tarball (built via "mix hex.build").
-becarios_bunsan_2020_b1-*.tar
+becarios_bunsan_2022_b1-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
