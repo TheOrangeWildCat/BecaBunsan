@@ -15,28 +15,24 @@ defmodule FizzBuzz do
   ## Examples
 
       iex> FizzBuzz.fizzBuzz(3)
-      1
-      2
       "Fizz"
-      :ok
-
   """
 
 
   def fizzBuzz(x) do
-    fizzBuzz(1,x)
+    fizzBuzz("",x)
   end
-  def fizzBuzz(c,x) do
+  def fizzBuzz(x,c) do
     cond do
-      rem(c,15) == 0 -> IO.puts("FizzBuzz")
-      rem(c,5) ==0 -> IO.puts("Buzz")
-      rem(c,3) == 0 -> IO.puts("Fizz")
-      c != 0 -> IO.puts(c)
+      rem(c,15) == 0 -> x = ("FizzBuzz")
+      rem(c,5) ==0 -> x = ("Buzz")
+      rem(c,3) == 0 -> x = ("Fizz")
+      c != 0 -> x = (c)
     end
-    if c < x do
-      fizzBuzz(c+1,x)
-    else
-      IO.puts("")
-    end
+    # if c < x do
+    #   fizzBuzz(c+1,x)
+    # else
+    #   IO.puts("")
+    # end
   end
 end
