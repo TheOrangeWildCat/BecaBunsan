@@ -10,7 +10,6 @@ defmodule FizzBuzz do
       rem(c,3) == 0 -> IO.puts("Fizz")
       c != 0 -> IO.puts(c)
     end
-
     if c < x do
       fizzBuzz(c+1,x)
     else

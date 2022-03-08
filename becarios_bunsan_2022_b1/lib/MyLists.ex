@@ -1,4 +1,17 @@
-defmodule MyList do
+defmodule MyLists do
+
+  @doc """
+
+  ## Examples
+
+    MyLists.each(["Hola", "Mundo"], fn x -> IO.puts(x) end)
+    "Hola"
+    "Mundo"
+    #=> :ok
+
+
+  """
+
 
   def each([], _), do: :ok
   def each([h|t], fx) do
@@ -16,12 +29,14 @@ defmodule MyList do
       fx.((h), reduce(t, acc, fx))
   end
 
-  def zip([], []), do: []
+  def zip([], _), do: []
+  def zip(_, []), do: []
   def zip([h|t],[h2|t2]) do
     [{h,h2}|zip(t,t2)]
   end
 
-  def zip_with([], [],_), do: []
+  def zip_with([], _,_), do: []
+  def zip_with(_, [],_), do: []
   def zip_with([h|t],[h2|t2],fx) do
     [fx.(h,h2)|zip_with(t,t2,fx)]
   end
