@@ -1,16 +1,23 @@
 defmodule WordCount do
 
-  def contar(ruta) do
+  @moduledoc """
+  esta es la documentacion
+  """
+
+  @doc """
+  ## Examples
+  iex> WordCount.count("./lib/file.txt")
+  """
+
+  def count(ruta) do
     {:ok, text} = File.read(ruta)
-    mapear(text |> formatear() )
+    text |> formatear() |> mapear
   end
 
   def formatear(text) do
     text |> String.downcase()
-    |> String.replace("á","a") |> String.replace("é","e")
-    |> String.replace("í","i") |> String.replace("ó","o")
-    |> String.replace("ú","u")
-    |> String.replace(~r/[^[:alnum:]]/, " ") # https://support.google.com/a/answer/1371415?hl=es de aqui saque la expresion regular
+    |> String.normalize(:nfd)  # remplaza caracteres unicode por su caracter ascii  ex á -> a + ´
+    |> String.replace(~r/[^[:alnum:]]/, " ") # https://support.google.com/a/answer/1371415?hl=es <-De aqui saque la información para la expresion regular
     |> String.split()
   end
 
@@ -22,5 +29,5 @@ defmodule WordCount do
 end
 
 
-# WordCount.contar("./lib/file.txt")
+# WordCount.count("./lib/file.txt")
 #
