@@ -1,53 +1,13 @@
 defmodule MetroCDMXChallenge do
-  @moduledoc """
-   Documentation for `MetroCDMXChallenge`.
-   Etapa 1 :
-      para la etapa uno se puede ejecutar
-
-      MetroCDMXChallenge.metro_lines("./lib/MetroCDMX.xml")
-
-      donde nos mostrara el nombre de la linea y sus estaciones
-
-  """
-  @doc """
-
-  Obtains ....
-
-  ## Examples
-    iex> MetroCdmxChallenge.metro_lines("./data/tiny_metro.kml")
-    [
-      %{name: "Línea 5", stations:
-        [
-          %{name: "Pantitlan", coords: "90.0123113 30.012121"},
-          %{name: "Hangares", coords: "90.0123463 30.012158"},
-        ]
-      },
-      %{name: "Línea 3", stations:
-        [
-          %{name: "Universidad", coords: "90.0123113 30.012121"},
-          %{name: "Copilco", coords: "90.0123463 30.012158"},
-        ]
-      }
-    ]
-  """
-
   import SweetXml
 
   defmodule Line do
-    #defstruct name: "", stations: []
     defstruct [:name, :stations]
   end
 
   defmodule Station do
     defstruct [:name, :coords]
   end
-
-
-
-@doc """
-metro_lines( ruta )
-muestra una lista de las lineas con sus estaciones
-"""
 
   def metro_lines(xml_path) do
     doc = File.read!(xml_path)
@@ -56,8 +16,25 @@ muestra una lista de las lineas con sus estaciones
   end
 
   def metro_graph(xml_path) do
-    lineas = metro_lines(xml_path)
+    doc = read(xml_path)
+    estaciones = doc |> toDict()
+    lineas = soloLineas(doc, estaciones)
+    graph = Graph.new(type: :undirected)
+    listaNodos = Enum.map(lineas, fn linea ->
+    [_ | l2] = linea
+    Enum.zip(linea,l2)
+    end)
+    Enum.reduce(listaNodos,graph, fn a, graph -> graph |> Graph.add_edges(a)end)
+  end
 
+  def soloLineas(doc, estaciones) do
+    doc
+    |> xpath(~x"//Document/Folder/Placemark/LineString/coordinates/text()"ls)
+    |> Enum.map(fn x ->  x
+    |> String.trim()
+    |> String.replace(" ","")
+    |> String.split("\n")
+    |> Enum.map(fn x -> estaciones[x] end ) end)
   end
 
   defp read(xml_path) do
@@ -77,8 +54,8 @@ muestra una lista de las lineas con sus estaciones
 
   defp metroLineas(doc, estaciones) do
     linea = doc |> xpath(~x"//Document/Folder[1]/Placemark/name/text()"ls)
-    coordenadas = doc |> xpath(~x"//Document/Folder/Placemark/LineString/coordinates/text()"ls)
-    coordenadas =  coordenadas
+    coordenadas = doc
+    |> xpath(~x"//Document/Folder/Placemark/LineString/coordinates/text()"ls)
     |> Enum.map(fn x ->  x
     |> String.trim()
     |> String.replace(" ","")
