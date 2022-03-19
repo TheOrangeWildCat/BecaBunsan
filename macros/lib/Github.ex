@@ -14,6 +14,6 @@ defmodule Github do
   def go(repo) do
     url = apply(__MODULE__, repo, [])["html_url"]
     IO.puts "Launching browser to #{url}..."
-    System.cmd("open", [url])
+    System.cmd("xdg-open", [url])
   end
 end
