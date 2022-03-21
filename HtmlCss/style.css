@@ -5,15 +5,44 @@
 }
 
 h1{
-    color: chocolate;
+    color: black;
     margin: 32px 0;
     text-align: center;
   
 }
+
+
+
+h2{
+    margin-bottom: 24px;    
+}
+
+
+button{
+    display: block;
+    width: 100%;
+    padding: 8px;
+    border: none;
+    background-color: indigo;
+    color: wheat;
+    border-radius: 5px;
+    box-shadow: 2px 4px 8px gray;
+
+}
+
+body{
+    background-image: url(./assets/pattern-background-desktop.svg);
+    background-repeat: no-repeat;
+    background-color: aliceblue;   
+}
 /* selector por ID */
+#profileCard{
+    background: linear-gradient(to bottom, rgba(150, 215, 108, 1) 3%,rgba(150, 215, 108, .2), rgba(255,255,255,.1)), url(./assets/28478-matrix.png);
+}
+
 #card{  
-    background-color: white;
-    width: 35%;
+    background-color:azure;
+    width: 50%;
     min-width: 350;
     max-width: 450;
     /* el auto en la segunda posición reparte mitad y mitad a los lados */
@@ -33,10 +62,6 @@ h1{
 #container{
     padding: 36px;
     text-align: center;
-}
-
-h2{
-    margin-bottom: 24px;    
 }
 
 .description{
@@ -70,20 +95,16 @@ h2{
     color: blue;
 }
 
-button{
-    display: block;
-    width: 100%;
-    padding: 8px;
-    border: none;
-    background-color: indigo;
-    color: wheat;
-    border-radius: 5px;
-    box-shadow: 2px 4px 8px gray;
-
+.avatar{
+    text-align: center;
+    vertical-align: middle;
+    width: 15%;
+    height: 15%;
+    border-radius: 50%;
 }
 
-body{
-    background-image: url(./assets/pattern-background-desktop.svg);
-    background-repeat: no-repeat;
-    background-color: aliceblue;   
+.foto{
+    width: 100%;
+    color: red;
+    align-items: center;
 }
