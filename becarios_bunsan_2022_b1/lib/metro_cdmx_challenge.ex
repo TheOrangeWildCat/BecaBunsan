@@ -76,7 +76,7 @@ defmodule MetroCDMXChallenge do
     |> Enum.reduce([], fn {o, d}, acc ->
       (g |> Graph.edges(o, d)) ++ acc
     end)
-    |> Enum.reverse()
+    |> Enum.reverse() |> IO.inspect()
     |> to_struct()
   end
 

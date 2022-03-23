@@ -4,7 +4,7 @@ defmodule MetroCDMXChallenge do
 
     MetroCDMXChallenge.metro_lines()
 
-  para crear el grafo de las lineas del metro de la ciudad
+  para dar una ruta predefinida
 
     MetroCDMXChallenge.metro_graph()
   """
@@ -30,7 +30,7 @@ defmodule MetroCDMXChallenge do
     defstruct [:name, :coords]
   end
 
-  defmodule Segment do
+  defmodule Itinerary do
     defstruct [:segment, :line, :origin, :dest, :steps]
   end
 
@@ -69,7 +69,9 @@ defmodule MetroCDMXChallenge do
 
     # ruta = Graph.get_shortest_path(g, "Balbuena", "Tacubaya") |> IO.inspect()
     # ruta = Graph.get_shortest_path(g, "Observatorio", "Coyoacán") |> IO.inspect()
-    ruta = Graph.get_shortest_path(g, "Etiopía | Plaza de la Transparencia", "Normal") |> IO.inspect()
+    ruta =
+      Graph.get_shortest_path(g, "Etiopía | Plaza de la Transparencia", "Normal") |> IO.inspect()
+
     [_ | t] = ruta
 
     Enum.zip(ruta, t)
@@ -83,7 +85,7 @@ defmodule MetroCDMXChallenge do
   def to_struct([h | t]) do
     %{label: l, v1: orig, v2: dest} = h
 
-    curr = %Segment{
+    curr = %Itinerary{
       segment: 1,
       line: l,
       origin: orig,
@@ -112,7 +114,7 @@ defmodule MetroCDMXChallenge do
       h.label != prev.line ->
         %{label: l, v1: orig, v2: dest} = h
 
-        curr = %Segment{
+        curr = %Itinerary{
           segment: prev.segment + 1,
           line: l,
           origin: orig,
