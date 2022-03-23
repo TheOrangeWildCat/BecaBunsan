@@ -43,41 +43,6 @@ defmodule MetroCDMXChallenge do
     metroLineas(@datos, @dict)
   end
 
-  @doc """
-    metro_graph
-    esta funcion crea un grafo con las estaciones de las lineas del metro
-  """
-  # def metro_graph() do
-  #   lineas =
-  #     soloLineas(@dict)
-  #     # |> IO.inspect()
-
-  #   graph = Graph.new(type: :directed)
-
-  #   listaNodos1 =
-  #     Enum.map(lineas, fn linea ->
-  #       [_ | l2] = linea
-  #       Enum.zip(linea, l2)
-  #     end)
-
-  #   # |> IO.inspect()
-
-  #   listaNodos2 =
-  #     Enum.map(lineas, fn linea ->
-  #       [_ | l2] = linea
-  #       Enum.zip(l2, linea)
-  #     end)
-
-  #   # |> IO.inspect()
-
-  #   m = Enum.reduce(listaNodos1 ++ listaNodos2, graph, fn a, graph ->
-  #     graph |> Graph.add_edges(a)
-  #   end)
-  #   m
-
-  # end
-
-  #! intento agregar el label
   def metro_graph() do
     g =
       metro_lines()
@@ -103,26 +68,21 @@ defmodule MetroCDMXChallenge do
       end)
 
     # ruta = Graph.get_shortest_path(g, "Balbuena", "Tacubaya") |> IO.inspect()
-    ruta = Graph.get_shortest_path(g, "Observatorio", "Coyoacán") |> IO.inspect()
+    # ruta = Graph.get_shortest_path(g, "Observatorio", "Coyoacán") |> IO.inspect()
+    ruta = Graph.get_shortest_path(g, "Etiopía | Plaza de la Transparencia", "Normal") |> IO.inspect()
     [_ | t] = ruta
 
     Enum.zip(ruta, t)
     |> Enum.reduce([], fn {o, d}, acc ->
-      (g |> Graph.edges(o, d)) ++  acc
+      (g |> Graph.edges(o, d)) ++ acc
     end)
     |> Enum.reverse()
-
     |> to_struct()
-
-
   end
 
   def to_struct([h | t]) do
+    %{label: l, v1: orig, v2: dest} = h
 
-    %{label: l,
-    v1: orig,
-    v2: dest
-    } = h
     curr = %Segment{
       segment: 1,
       line: l,
@@ -130,23 +90,30 @@ defmodule MetroCDMXChallenge do
       dest: dest,
       steps: 1
     }
-    to_struct(t,[],curr)
-  end
-  def to_struct([h | t], acc , prev) do
 
+    to_struct(t, [], curr)
+  end
+
+  def to_struct([], acc, prev) do
+    acc ++ [prev]
+  end
+
+  def to_struct([h | t], acc, prev) do
     cond do
-      h.label == prev.line -> #solo actualiza
+      # solo actualiza
+      h.label == prev.line ->
         prev |> IO.inspect()
-        curr = prev |> Map.replace(:dest, h.v2) |> Map.replace(:steps, prev.steps + 1) |> IO.inspect()
-        to_struct(t,acc,curr)
+
+        curr =
+          prev |> Map.replace(:dest, h.v2) |> Map.replace(:steps, prev.steps + 1) |> IO.inspect()
+
+        to_struct(t, acc, curr)
 
       h.label != prev.line ->
-        %{label: l,
-        v1: orig,
-        v2: dest} = h
+        %{label: l, v1: orig, v2: dest} = h
 
         curr = %Segment{
-          segment: prev.segment + 1 ,
+          segment: prev.segment + 1,
           line: l,
           origin: orig,
           dest: dest,
@@ -157,20 +124,10 @@ defmodule MetroCDMXChallenge do
 
         to_struct(t, currAcc, curr)
 
-        true -> acc ++ [prev]
-
+      true ->
+        acc ++ [prev]
     end
-
   end
-  def to_struct([], acc , prev) do
-    acc ++ [prev]
-
-
-  end
-
-  # def to_struct(strc,seg,step) do
-
-  # end
 
   # """
   #  metroLineas(archivo.xml, MapaDeEstaciones)
