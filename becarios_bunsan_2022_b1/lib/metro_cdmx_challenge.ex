@@ -44,9 +44,8 @@ defmodule MetroCDMXChallenge do
     esta funcion crea un grafo con las estaciones de las lineas del metro
   """
   def metro_graph() do
-    lineas =
-      soloLineas(@dict)
-      # |> IO.inspect()
+    lineas = soloLineas(@dict)
+    # |> IO.inspect()
 
     graph = Graph.new(type: :directed)
 
@@ -85,7 +84,6 @@ defmodule MetroCDMXChallenge do
   #         %{name: e} = estacion
   #         e
   #       end)
-
 
   #     [_ | b] = a
 
