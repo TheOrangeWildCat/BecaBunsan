@@ -43,43 +43,48 @@ defmodule MetroCDMXChallenge do
     metroLineas(@datos, @dict)
   end
 
-  def metro_graph() do
-    g =
-      metro_lines()
-      |> Enum.reduce(%Graph{}, fn linea, acc ->
-        %{name: n} = linea
-        %{stations: s} = linea
-        # IO.inspect(n)
-        a =
-          Enum.map(s, fn estacion ->
-            %{name: e} = estacion
-            e
-          end)
-
-        [_ | b] = a
-
-        m =
-          Enum.zip_reduce(a, b, [], fn x, y, acc ->
-            [{x, y, label: n} | [{y, x, label: n} | acc]]
-            # |> IO.inspect()
-          end)
-
-        acc |> Graph.add_edges(m)
-      end)
-
-    # ruta = Graph.get_shortest_path(g, "Balbuena", "Tacubaya") |> IO.inspect()
-    # ruta = Graph.get_shortest_path(g, "Observatorio", "Coyoacán") |> IO.inspect()
-    ruta =
-      Graph.get_shortest_path(g, "Etiopía | Plaza de la Transparencia", "Normal") |> IO.inspect()
+  def get_path(origin, dest) do
+    g = metro_graph()
+    ruta = Graph.get_shortest_path(g, origin, dest) |> IO.inspect()
 
     [_ | t] = ruta
 
-    Enum.zip(ruta, t)
-    |> Enum.reduce([], fn {o, d}, acc ->
-      (g |> Graph.edges(o, d)) ++ acc
+
+      Enum.zip(ruta, t)
+      |> Enum.reduce([], fn {o, d}, acc ->
+        (g |> Graph.edges(o, d)) ++ acc
+      end)
+      |> Enum.reverse()
+      |> to_struct()
+
+  end
+
+  def metro_graph() do
+    metro_lines()
+    |> Enum.reduce(%Graph{}, fn linea, acc ->
+      %{name: n} = linea
+      %{stations: s} = linea
+      # IO.inspect(n)
+      a =
+        Enum.map(s, fn estacion ->
+          %{name: e} = estacion
+          e
+        end)
+
+      [_ | b] = a
+
+      m =
+        Enum.zip_reduce(a, b, [], fn x, y, acc ->
+          [{x, y, label: n} | [{y, x, label: n} | acc]]
+          # |> IO.inspect()
+        end)
+
+      acc |> Graph.add_edges(m)
     end)
-    |> Enum.reverse()
-    |> to_struct()
+
+    # ruta = Graph.get_shortest_path(g, "Balbuena", "Tacubaya") |> IO.inspect()
+    # ruta = Graph.get_shortest_path(g, "Observatorio", "Coyoacán") |> IO.inspect()
+    #MetroCDMXChallenge.get_path("Eugenia","Normal")
   end
 
   def to_struct([h | t]) do
@@ -104,7 +109,7 @@ defmodule MetroCDMXChallenge do
     cond do
       # solo actualiza
       h.label == prev.line ->
-        prev |> IO.inspect()
+        # prev |> IO.inspect()
 
         curr =
           prev |> Map.replace(:dest, h.v2) |> Map.replace(:steps, prev.steps + 1) |> IO.inspect()
