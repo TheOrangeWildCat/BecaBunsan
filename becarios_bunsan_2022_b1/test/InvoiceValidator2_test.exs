@@ -12,8 +12,7 @@ defmodule InvoiceValidatorTest do
      {:error, "han pasado mas de 72 horas desde la emisión"}},
     {"72 hours", "America/Cancun", ~N[2022-03-20 16:06:31],
      {:error, "han pasado mas de 72 horas desde la emisión"}},
-
-    {"72 hours", "America/Tijuana", ~N[2022-03-20 14:06:35], {:ok, "aprovado"}},
+    {"72 hours", "America/Tijuana", ~N[2022-03-20 14:06:35]},
     {"72 hours", "America/Mazatlan", ~N[2022-03-20 14:06:35], {:ok, "aprovado"}},
     {"72 hours", "Mexico/General", ~N[2022-03-20 15:06:35], {:ok, "aprovado"}},
     {"72 hours", "America/Cancun", ~N[2022-03-20 16:06:35], {:ok, "aprovado"}},

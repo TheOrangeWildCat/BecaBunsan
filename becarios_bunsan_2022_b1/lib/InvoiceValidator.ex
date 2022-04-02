@@ -8,10 +8,10 @@ defmodule InvoiceValidator do
     #|> IO.inspect()
 
     cond do
-      d2 - d1 > 259_200 ->
+      d2 - d1 > 259_200 -> #fecha de timbrado mayor de las 72 horas permitidas
         {:error, "han pasado mas de 72 horas desde la emisión"}
 
-      d1 - d2 > 300 ->
+      d1 - d2 > 300 -> #fecha de timbrado 5 minutos antes de la hora de la transaccion
         {:error, "alto ahi no puedes viajar al futuro"}
 
       true ->
