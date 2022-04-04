@@ -49,14 +49,12 @@ defmodule MetroCDMXChallenge do
 
     [_ | t] = ruta
 
-
-      Enum.zip(ruta, t)
-      |> Enum.reduce([], fn {o, d}, acc ->
-        (g |> Graph.edges(o, d)) ++ acc
-      end)
-      |> Enum.reverse()
-      |> to_struct()
-
+    Enum.zip(ruta, t)
+    |> Enum.reduce([], fn {o, d}, acc ->
+      (g |> Graph.edges(o, d)) ++ acc
+    end)
+    |> Enum.reverse()
+    |> to_struct()
   end
 
   def metro_graph() do
@@ -84,7 +82,7 @@ defmodule MetroCDMXChallenge do
 
     # ruta = Graph.get_shortest_path(g, "Balbuena", "Tacubaya") |> IO.inspect()
     # ruta = Graph.get_shortest_path(g, "Observatorio", "Coyoacán") |> IO.inspect()
-    #MetroCDMXChallenge.get_path("Eugenia","Normal")
+    # MetroCDMXChallenge.get_path("Eugenia","Normal")
   end
 
   def to_struct([h | t]) do
