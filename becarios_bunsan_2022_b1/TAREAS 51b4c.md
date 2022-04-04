@@ -206,15 +206,15 @@
     
     ![Untitled](TAREAS%2051b4c/Untitled%2023.png)
     
-    1. Create such a file on your webserver ([myweb.com](http://myweb.com/)) and repeat the exercise.
-    2. On the web server modify the date/time of the file using touch command e.g.
+    3. Create such a file on your webserver ([myweb.com](http://myweb.com/)) and repeat the exercise.
+    4. On the web server modify the date/time of the file using touch command e.g.
     touch welcome.html
-    3. Make the request again using wget as in step 2. Note down the header values
+    5. Make the request again using wget as in step 2. Note down the header values
     of “Last-Modified:” and “Etags:”
-    4. You should get the full content with status code 200.
-    5. Modify the date/time of welcome.html file
-    6. Make another request using the header i.e. “If-None-Match: “ with the value
+    6. You should get the full content with status code 200.
+    7. Modify the date/time of welcome.html file
+    8. Make another request using the header i.e. “If-None-Match: “ with the value
     corresponding to “Etags:” in the response as in step. e.g.
     wget -d --header='If-None-Match: "xxxx..."'
     [http://myweb.com/accs/welcome.html](http://myweb.com/accs/welcome.html)
-    7. Analyze the response and HTTP Status code.
+    9. Analyze the response and HTTP Status code.
