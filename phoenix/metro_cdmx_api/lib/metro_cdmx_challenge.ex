@@ -49,12 +49,19 @@ defmodule MetroCDMXChallenge do
 
     [_ | t] = ruta
 
-    Enum.zip(ruta, t)
+    x = Enum.zip(ruta, t)
     |> Enum.reduce([], fn {o, d}, acc ->
       (g |> Graph.edges(o, d)) ++ acc
     end)
     |> Enum.reverse()
     |> to_struct()
+
+    %{
+      origin: origin,
+      dest: dest,
+      itinerary: x
+    }
+
   end
 
   def metro_graph() do
@@ -88,7 +95,7 @@ defmodule MetroCDMXChallenge do
   def to_struct([h | t]) do
     %{label: l, v1: orig, v2: dest} = h
 
-    curr = %Itinerary{
+    curr = %{
       segment: 1,
       line: l,
       origin: orig,
@@ -117,7 +124,7 @@ defmodule MetroCDMXChallenge do
       h.label != prev.line ->
         %{label: l, v1: orig, v2: dest} = h
 
-        curr = %Itinerary{
+        curr = %{
           segment: prev.segment + 1,
           line: l,
           origin: orig,

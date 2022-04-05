@@ -8,6 +8,6 @@ defmodule MetroCdmxApiWeb.Router do
 
   scope "/api", MetroCdmxApiWeb do
     pipe_through :api
-    get "/metrocdmx/route", MetroController, :show
+    get "/metrocdmx/route", MetroController, :get
   end
 end
