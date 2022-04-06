@@ -1,0 +1,39 @@
+ <section>
+        <header>
+            <!-- encabezado -->
+            <h1>Pet Card</h1>
+        </header>
+        <main>
+            <!-- tener solo un main-->
+            <div id="card">
+                <!-- sirve para agrupar elementos y darle estilo a todos ellos-->
+
+                <!--esta estiqueta no se cierra-->
+                <div id="container">
+                    <div id="foto">
+<img src={Routes.static_path(@conn, "/images/dino.png")} alt="Avatar"  />  
+                    <h2>
+                        <%= @pet.name %>
+                    </h2>
+                     </div>
+  
+
+                     <strong>Age:</strong>
+      <%= @pet.age %>
+    <br>
+    <strong>Type:</strong>
+      <%= @pet.type %>
+    <br>
+                    
+                        <strong>Sex:</strong>
+      <%= @pet.sex %>
+    <br>
+
+    </div>
+                 </div>
+        </main>
+    </section>
+
+<span><%= link "Edit", to: Routes.pet_path(@conn, :edit, @pet) %></span> |
+<span><%= link "Back", to: Routes.pet_path(@conn, :index) %></span>
+
