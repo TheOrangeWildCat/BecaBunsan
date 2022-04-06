@@ -1,52 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css">
-    <title>Form</title>
-  </head>
-  <body>
-    <main>
-    
-      <section>
-   
-          <form action="http://urlurl.com/register.php" method="POST"> 
 
-              <label for="">
-                name
-                <input type="text" name="name" id="name">
-              </label> 
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="form.css">
+  <title>myform</title>
+</head>
 
-              <label for="">
-                description
-                <textarea name="description" id="description" cols="10" rows="10">
-                </textarea>
-              </label>
+<body>
+  <main>
 
-              <label for=""> startDate
-                <input type="date" name="startDate" id="startDate">
-              </label>
+    <section>
+      <p>
+        <strong>Tarea html formulario</strong>
+      </p>
 
-              <label for=""> endDate
-                <input type="date" name="endDate" id="endDate">
-              </label>
-     
-              <label for="">   favoriteFood      
-                <select name="favoriteFood" id="Food">
-                  <option value="Pizza">Pizza</option>
-                  <option value="Taco">Taco</option>
-                  <option value="Hamburguer">Hamburguer</option>
-                  <option value="Ramen">Ramen</option>
-                </select></label>
-              
-            <button type="submit">registrar</button>
-        
+      <form action="http://urlurl.com/register.php" method="POST">
 
-          </form>
-      </section>
+        <div>
+          <label for="">
+            Name
+            <input type="text" name="name" id="name" placeholder="your name" required>
+          </label>
+        </div>
+        <br>
 
-    </main>
-  </body>
+        <div>
+          <label for=""> Start Date
+            <input type="date" name="startDate" id="startDate" placeholder="">
+          </label>
+        </div>
+        <br>
+
+        <div>
+          <label for=""> End Date
+            <input type="date" name="endDate" id="endDate">
+          </label>
+        </div>
+        <br>
+
+        <div>
+          <select name="favoriteFood" id="Food" class="decorated">
+            <option value="">Select your favoriteFood</option>
+            <option value="Pizza">Pizza</option>
+            <option value="Taco">Taco</option>
+            <option value="Hamburguer">Hamburguer</option>
+            <option value="Ramen">Ramen</option>
+          </select>
+        </div>
+        <br>
+
+        <div>
+          <textarea name="" id="" cols="" rows="" placeholder="About you"></textarea>
+        </div>
+        <br>
+
+        <div>
+          <input type="submit" value="Registrar"></button>
+        </div>
+
+      </form>
+    </section>
+
+  </main>
+</body>
+
 </html>
