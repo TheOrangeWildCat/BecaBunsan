@@ -1,43 +1,32 @@
- <section>
-        <header>
-            <!-- encabezado -->
-            <h1>Profile Card</h1>
-        </header>
-        <main>
-            <!-- tener solo un main-->
-            <div id="card">
-                <!-- sirve para agrupar elementos y darle estilo a todos ellos-->
-
-                <!--esta estiqueta no se cierra-->
-                <div id="container">
-                    <div id="foto">
-<img src={Routes.static_path(@conn, "/images/healthExpert.png")} alt="Avatar"  />                    
-</div>
-                    <h2>
-                        <%= @pet_health_expert.name %>
-                    </h2>
-                                        <p class="description">
-                        Expert healt at My pet clinic
-                    </p>
-                    <strong>Email:</strong>
-      <%= @pet_health_expert.email %>
-    <br>
-
-                     <strong>Age:</strong>
-      <%= @pet_health_expert.age %>
-    <br>
-                    
-                        <strong>Specialities:</strong>
-      <%= @pet_health_expert.specialities %>
-    <br>
-
+<section>
+  <main>
+    <div id="card">
+      <div id="container">
+        <div id="foto">
+          <img src={Routes.static_path(@conn, "/images/healthExpert.png" )} alt="Avatar" />
+        </div>
+        <h2>
+          <%= @pet_health_expert.name %>
+        </h2>
+        <p class="description">
+          Expert healt at My pet clinic
+        </p>
+        <strong>Email:</strong>
+        <%= @pet_health_expert.email %>
+          <br>
+          <strong>Age:</strong>
+          <%= @pet_health_expert.age %>
+            <br>
+            <strong>Specialities:</strong>
+            <%= @pet_health_expert.specialities %>
+              <br>
+      </div>
     </div>
-                 </div>
-        </main>
-    </section>
+  </main>
+</section>
 <span>
-    <%= link "Edit" , to: Routes.pet_health_expert_path(@conn, :edit, @pet_health_expert) %>
+  <%= link "Edit" , to: Routes.pet_health_expert_path(@conn, :edit, @pet_health_expert) %>
 </span> |
 <span>
-    <%= link "Back" , to: Routes.pet_health_expert_path(@conn, :index) %>
+  <%= link "Back" , to: Routes.pet_health_expert_path(@conn, :index) %>
 </span>

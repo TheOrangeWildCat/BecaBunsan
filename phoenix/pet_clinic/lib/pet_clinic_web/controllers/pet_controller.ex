@@ -59,4 +59,9 @@ defmodule PetClinicWeb.PetController do
     |> put_flash(:info, "Pet deleted successfully.")
     |> redirect(to: Routes.pet_path(conn, :index))
   end
+
+  def index_by_type(conn, %{"type" => type}) do
+    pets = PetsClinicService.list_pets_by_type(type)
+    render(conn, "index_by_type.html", pets: pets, type: type)
+  end
 end

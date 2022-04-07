@@ -20,6 +20,7 @@ defmodule PetClinicWeb.Router do
     get "/", PageController, :index
     resources "/pets", PetController
     resources "/experts", PetHealthExpertController
+    get "/pets/by_type/:type", PetController, :index_by_type   #solo cambiar :type por cat/dog...
   end
 
   # Other scopes may use custom stacks.
