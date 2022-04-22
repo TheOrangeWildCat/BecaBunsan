@@ -8,6 +8,8 @@ defmodule PetClinic.PetsClinicExperts.PetHealthExpert do
     field :name, :string
     field :specialities, :string
 
+    has_many :patients, PetClinic.PetsClinicService.Pet
+
     timestamps()
   end
 

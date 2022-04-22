@@ -8,6 +8,10 @@ defmodule PetClinic.PetsClinicService.Pet do
     field :sex, :string
     field :type, :string
 
+    belongs_to :owner, PetClinic.PetClinicOwners.Owner
+
+    belongs_to :pet_health_expert, PetClinic.PetsClinicExperts.PetHealthExpert
+
     timestamps()
   end
 
@@ -16,5 +20,7 @@ defmodule PetClinic.PetsClinicService.Pet do
     pet
     |> cast(attrs, [:name, :age, :type, :sex])
     |> validate_required([:name, :age, :type, :sex])
+    |> validate_number(:age, greater_than_or_equal_to: 0)
+
   end
 end

@@ -1,0 +1,1002 @@
+
+
+-----------------CREAR PET CON OWNER ------------------------
+
+iex(17)> kira = %Pet{age: 2, name: "kira", owner_id: 1, sex: "flemale", type: "cat"}
+%PetClinic.PetsClinicService.Pet{
+  __meta__: #Ecto.Schema.Metadata<:built, "pets">,
+  age: 2,
+  id: nil,
+  inserted_at: nil,
+  name: "kira",
+  owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+  owner_id: 1,
+  sex: "flemale",
+  type: "cat",
+  updated_at: nil
+}
+iex(18)> Repo.insert(kira)
+[debug] QUERY OK db=13.2ms queue=1.0ms idle=1518.8ms
+INSERT INTO "pets" ("age","name","owner_id","sex","type","inserted_at","updated_at") VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING "id" [2, "kira", 1, "flemale", "cat", ~N[2022-04-21 04:57:09], ~N[2022-04-21 04:57:09]]
+{:ok,
+ %PetClinic.PetsClinicService.Pet{
+   __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+   age: 2,
+   id: 7,
+   inserted_at: ~N[2022-04-21 04:57:09],
+   name: "kira",
+   owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+   owner_id: 1,
+   sex: "flemale",
+   type: "cat",
+   updated_at: ~N[2022-04-21 04:57:09]
+ }}
+
+ 
+ --------------CONSULTA DE LA MASCOTA CREADA CON OWNER ----------------
+ 
+ iex(20)> Repo.get(Pet,7) |> Repo.preload(:owner)
+ [debug] QUERY OK source="pets" db=0.6ms queue=0.1ms idle=1593.2ms
+ SELECT p0."id", p0."age", p0."name", p0."sex", p0."type", p0."owner_id", p0."inserted_at", p0."updated_at" FROM "pets" AS p0 WHERE (p0."id" = $1) [7]
+ [debug] QUERY OK source="owners" db=0.7ms queue=0.7ms idle=1594.5ms
+ SELECT o0."id", o0."age", o0."email", o0."name", o0."phone_num", o0."inserted_at", o0."updated_at", o0."id" FROM "owners" AS o0 WHERE (o0."id" = $1) [1]
+ %PetClinic.PetsClinicService.Pet{
+   __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+   age: 2,
+   id: 7,
+   inserted_at: ~N[2022-04-21 04:57:09],
+   name: "kira",
+   owner: %PetClinic.PetClinicOwners.Owner{ 
+     __meta__: #Ecto.Schema.Metadata<:loaded, "owners">,
+     age: 26,
+     email: "angel@bunsan.io",
+     id: 1,
+     inserted_at: ~N[2022-04-21 04:19:43],
+     name: "Angel",
+     pets: #Ecto.Association.NotLoaded<association :pets is not loaded>,
+     phone_num: 222255874,
+     updated_at: ~N[2022-04-21 04:19:43]
+   },
+   owner_id: 1,
+   sex: "flemale",
+   type: "cat",
+   updated_at: ~N[2022-04-21 04:57:09]
+ }
+ 
+ 
+--------------SEGUNDA MASCOTA CON OWNER PRECARGADO------------
+iex(22)> nissi = %Pet{age: 1, name: "nissi", owner_id: 2, sex: "flemale", type: "rabbit"}
+%PetClinic.PetsClinicService.Pet{
+  __meta__: #Ecto.Schema.Metadata<:built, "pets">,
+  age: 1,
+  id: nil,
+  inserted_at: nil,
+  name: "nissi",
+  owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+  owner_id: 2,
+  sex: "flemale",
+  type: "rabbit",
+  updated_at: nil
+}
+iex(23)> Repo.insert(nissi)                                                              
+[debug] QUERY OK db=42.2ms queue=1.5ms idle=1755.7ms
+INSERT INTO "pets" ("age","name","owner_id","sex","type","inserted_at","updated_at") VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING "id" [1, "nissi", 2, "flemale", "rabbit", ~N[2022-04-21 05:07:33], ~N[2022-04-21 05:07:33]]
+{:ok,
+ %PetClinic.PetsClinicService.Pet{
+   __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+   age: 1,
+   id: 8,
+   inserted_at: ~N[2022-04-21 05:07:33],
+   name: "nissi",
+   owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+   owner_id: 2,
+   sex: "flemale",
+   type: "rabbit",
+   updated_at: ~N[2022-04-21 05:07:33]
+ }}
+
+
+iex(24)> Repo.get(Pet,8) |> Repo.preload(:owner)
+[debug] QUERY OK source="pets" db=1.9ms queue=0.1ms idle=1605.2ms
+SELECT p0."id", p0."age", p0."name", p0."sex", p0."type", p0."owner_id", p0."inserted_at", p0."updated_at" FROM "pets" AS p0 WHERE (p0."id" = $1) [8]
+[debug] QUERY OK source="owners" db=1.7ms queue=0.1ms idle=1607.4ms
+SELECT o0."id", o0."age", o0."email", o0."name", o0."phone_num", o0."inserted_at", o0."updated_at", o0."id" FROM "owners" AS o0 WHERE (o0."id" = $1) [2]
+%PetClinic.PetsClinicService.Pet{
+  __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+  age: 1,
+  id: 8,
+  inserted_at: ~N[2022-04-21 05:07:33],
+  name: "nissi",
+  owner: %PetClinic.PetClinicOwners.Owner{
+    __meta__: #Ecto.Schema.Metadata<:loaded, "owners">,
+    age: 27,
+    email: "israel@owner.com",
+    id: 2,
+    inserted_at: ~N[2022-04-21 04:50:04],
+    name: "Israel",
+    pets: #Ecto.Association.NotLoaded<association :pets is not loaded>,
+    phone_num: 22244475,
+    updated_at: ~N[2022-04-21 04:50:04]
+  },
+  owner_id: 2,
+  sex: "flemale",
+  type: "rabbit",
+  updated_at: ~N[2022-04-21 05:07:33]
+}
+
+
+
+
+--------------- CONSULTA DE LOS OWNERLESS ------------
+
+
+iex(5)> ownerless = Repo.all(from p in Pet, where: is_nil(p.owner_id), select: [p.name]
+0 WHERE (p0."owner_id" IS NULL) []
+[["Bubafina"], ["yesca"], ["jazmin"], ["rufo"]]
+
+--------------- EXTRACCION DEL PET YESCA ------------
+
+iex(6)> yesca = Repo.get_by(Pet, name: "yesca") |> Repo.preload(:owner)       
+[debug] QUERY OK source="pets" db=1.5ms queue=2.4ms idle=1630.6ms
+SELECT p0."id", p0."age", p0."name", p0."sex", p0."type", p0."owner_id", p0."inserted_at", p0."updated_at" FROM "pets" AS p0 WHERE (p0."name" = $1) ["yesca"]
+%PetClinic.PetsClinicService.Pet{
+  __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+  age: 5,
+  id: 4,
+  inserted_at: ~N[2022-04-20 19:56:13],
+  name: "yesca",
+  owner: nil,
+  owner_id: nil,
+  sex: "flemale",
+  type: "dog",
+  updated_at: ~N[2022-04-20 19:56:13]
+}
+
+--------------- EXTRACCION DEL OWNER ANGEL ------------
+
+iex(10)> angel = Repo.get_by(Owner, name: "Angel") |> Repo.preload(:pets) 
+[debug] QUERY OK source="owners" db=0.6ms queue=0.1ms idle=1159.3ms
+SELECT o0."id", o0."age", o0."email", o0."name", o0."phone_num", o0."inserted_at", o0."updated_at" FROM "owners" AS o0 WHERE (o0."name" = $1) ["Angel"]
+[debug] QUERY OK source="pets" db=2.1ms idle=1160.4ms
+SELECT p0."id", p0."age", p0."name", p0."sex", p0."type", p0."owner_id", p0."inserted_at", p0."updated_at", p0."owner_id" FROM "pets" AS p0 WHERE (p0."owner_id" = $1) ORDER BY p0."owner_id" [1]
+%PetClinic.PetClinicOwners.Owner{
+  __meta__: #Ecto.Schema.Metadata<:loaded, "owners">,
+  age: 26,
+  email: "angel@bunsan.io",
+  id: 1,
+  inserted_at: ~N[2022-04-21 04:19:43],
+  name: "Angel",
+  pets: [
+    %PetClinic.PetsClinicService.Pet{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+      age: 2,
+      id: 7,
+      inserted_at: ~N[2022-04-21 04:57:09],
+      name: "kira",
+      owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+      owner_id: 1, 
+      sex: "flemale",
+      type: "cat",
+      updated_at: ~N[2022-04-21 04:57:09]
+    }
+  ],
+  phone_num: 222255874,
+  updated_at: ~N[2022-04-21 04:19:43]
+}
+
+
+--------------- EXTRACCION DE EL OWNER SAMANTHA ------------
+
+iex(11)> sam = Repo.get_by(Owner, name: "Samantha") |> Repo.preload(:pets)  
+[debug] QUERY OK source="owners" db=1.8ms idle=1335.6ms
+SELECT o0."id", o0."age", o0."email", o0."name", o0."phone_num", o0."inserted_at", o0."updated_at" FROM "owners" AS o0 WHERE (o0."name" = $1) ["Samantha"]
+[debug] QUERY OK source="pets" db=1.8ms idle=1337.8ms
+SELECT p0."id", p0."age", p0."name", p0."sex", p0."type", p0."owner_id", p0."inserted_at", p0."updated_at", p0."owner_id" FROM "pets" AS p0 WHERE (p0."owner_id" = $1) ORDER BY p0."owner_id" [3]
+%PetClinic.PetClinicOwners.Owner{
+  __meta__: #Ecto.Schema.Metadata<:loaded, "owners">,
+  age: 5, 
+  email: "sam@owner.com",
+  id: 3,
+  inserted_at: ~N[2022-04-21 05:09:45],
+  name: "Samantha",
+  pets: [],
+  phone_num: 225896445,
+  updated_at: ~N[2022-04-21 05:09:45]
+}
+
+------------------AGREGAR MASCOTA A EL OWNER SAMANTHA----------------
+
+iex(14)> chst = yesca |> change() |> put_assoc(:owner, sam)
+#Ecto.Changeset<
+  action: nil,
+  changes: %{
+    owner: #Ecto.Changeset<action: :update, changes: %{}, errors: [],
+     data: #PetClinic.PetClinicOwners.Owner<>, valid?: true>
+  },
+  errors: [],
+  data: #PetClinic.PetsClinicService.Pet<>,
+  valid?: true
+>
+iex(15)> Repo.update(chst)
+[debug] QUERY OK db=0.5ms idle=1125.6ms
+begin []
+[debug] QUERY OK db=15.6ms
+UPDATE "pets" SET "owner_id" = $1, "updated_at" = $2 WHERE "id" = $3 [3, ~N[2022-04-21 21:19:50], 4]
+[debug] QUERY OK db=24.9ms
+commit []
+{:ok,
+ %PetClinic.PetsClinicService.Pet{
+   __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+   age: 5,
+   id: 4,
+   inserted_at: ~N[2022-04-20 19:56:13],
+   name: "yesca",
+   owner: %PetClinic.PetClinicOwners.Owner{
+     __meta__: #Ecto.Schema.Metadata<:loaded, "owners">,
+     age: 5,
+     email: "sam@owner.com",
+     id: 3,
+     inserted_at: ~N[2022-04-21 05:09:45],
+     name: "Samantha",
+     pets: [],
+     phone_num: 225896445,
+     updated_at: ~N[2022-04-21 05:09:45]
+   },
+   owner_id: 3,
+   sex: "flemale",
+   type: "dog",
+   updated_at: ~N[2022-04-21 21:19:50]
+ }}
+
+ 
+ ---------- CONSULTA DE LA PET AGREGADA AL OWNER SAMANTHA-----------------------
+
+iex(18)> sam = Repo.get_by(Owner, name: "Samantha") |> Repo.preload(:pets)
+[debug] QUERY OK source="owners" db=1.3ms idle=1800.4ms
+SELECT o0."id", o0."age", o0."email", o0."name", o0."phone_num", o0."inserted_at", o0."updated_at" FROM "owners" AS o0 WHERE (o0."name" = $1) ["Samantha"]
+[debug] QUERY OK source="pets" db=2.1ms idle=1801.8ms
+SELECT p0."id", p0."age", p0."name", p0."sex", p0."type", p0."owner_id", p0."inserted_at", p0."updated_at", p0."owner_id" FROM "pets" AS p0 WHERE (p0."owner_id" = $1) ORDER BY p0."owner_id" [3]
+%PetClinic.PetClinicOwners.Owner{
+  __meta__: #Ecto.Schema.Metadata<:loaded, "owners">,
+  age: 5, 
+  email: "sam@owner.com",
+  id: 3,
+  inserted_at: ~N[2022-04-21 05:09:45],
+  name: "Samantha",
+  pets: [
+    %PetClinic.PetsClinicService.Pet{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+      age: 5,
+      id: 4,
+      inserted_at: ~N[2022-04-20 19:56:13],
+      name: "yesca",
+      owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+      owner_id: 3,
+      sex: "flemale",
+      type: "dog",
+      updated_at: ~N[2022-04-21 21:19:50]
+    } 
+  ],
+  phone_num: 225896445,
+  updated_at: ~N[2022-04-21 05:09:45]
+}
+
+----------- EXTRACCIONO DE OTRA MASCOTA ----------------------------
+
+iex(17)> buba = Repo.get_by(Pet, name: "Bubafina") |> Repo.preload(:owner)
+[debug] QUERY OK source="pets" db=0.9ms idle=1125.5ms
+SELECT p0."id", p0."age", p0."name", p0."sex", p0."type", p0."owner_id", p0."inserted_at", p0."updated_at" FROM "pets" AS p0 WHERE (p0."name" = $1) ["Bubafina"]
+%PetClinic.PetsClinicService.Pet{
+  __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+  age: 10,
+  id: 1,
+  inserted_at: ~N[2022-04-20 06:13:24],
+  name: "Bubafina",
+  owner: nil,
+  owner_id: nil,
+  sex: "flemale",
+  type: "cat",
+  updated_at: ~N[2022-04-20 06:13:24]
+}
+
+---------- CONSULTA DE LA PET AGREGADA AL OWNER SAMANTHA-----------------------
+
+iex(19)> chst = buba |> change() |> put_assoc(:owner, sam)                
+#Ecto.Changeset<
+  action: nil,
+  changes: %{
+    owner: #Ecto.Changeset<action: :update, changes: %{}, errors: [],
+     data: #PetClinic.PetClinicOwners.Owner<>, valid?: true>
+  },
+  errors: [],
+  data: #PetClinic.PetsClinicService.Pet<>,
+  valid?: true
+>
+iex(20)> Repo.update(chst)                                                
+[debug] QUERY OK db=0.8ms idle=1354.1ms
+begin []
+[debug] QUERY OK db=1.2ms
+UPDATE "pets" SET "owner_id" = $1, "updated_at" = $2 WHERE "id" = $3 [3, ~N[2022-04-21 21:26:02], 1]
+[debug] QUERY OK db=30.3ms
+commit []
+{:ok,
+ %PetClinic.PetsClinicService.Pet{
+   __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+   age: 10,
+   id: 1,
+   inserted_at: ~N[2022-04-20 06:13:24],
+   name: "Bubafina",
+   owner: %PetClinic.PetClinicOwners.Owner{
+     __meta__: #Ecto.Schema.Metadata<:loaded, "owners">,
+     age: 5,
+     email: "sam@owner.com",
+     id: 3,
+     inserted_at: ~N[2022-04-21 05:09:45],
+     name: "Samantha",
+     pets: [
+       %PetClinic.PetsClinicService.Pet{
+         __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+         age: 5,
+         id: 4,
+         inserted_at: ~N[2022-04-20 19:56:13],
+         name: "yesca",
+         owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+         owner_id: 3,
+         sex: "flemale",
+         type: "dog",
+         updated_at: ~N[2022-04-21 21:19:50]
+       }
+     ],
+     phone_num: 225896445,
+     updated_at: ~N[2022-04-21 05:09:45]
+   },
+   owner_id: 3,
+   sex: "flemale",
+   type: "cat",
+   updated_at: ~N[2022-04-21 21:26:02]
+ }}
+ 
+ ---------- ACTUALIZACION DEL OWNER SAMANTHA -----------------------
+
+iex(21)> sam = Repo.get_by(Owner, name: "Samantha") |> Repo.preload(:pets)
+[debug] QUERY OK source="owners" db=0.6ms idle=1626.2ms
+SELECT o0."id", o0."age", o0."email", o0."name", o0."phone_num", o0."inserted_at", o0."updated_at" FROM "owners" AS o0 WHERE (o0."name" = $1) ["Samantha"]
+[debug] QUERY OK source="pets" db=2.1ms idle=1627.1ms
+SELECT p0."id", p0."age", p0."name", p0."sex", p0."type", p0."owner_id", p0."inserted_at", p0."updated_at", p0."owner_id" FROM "pets" AS p0 WHERE (p0."owner_id" = $1) ORDER BY p0."owner_id" [3]
+%PetClinic.PetClinicOwners.Owner{
+  __meta__: #Ecto.Schema.Metadata<:loaded, "owners">,
+  age: 5, 
+  email: "sam@owner.com",
+  id: 3,
+  inserted_at: ~N[2022-04-21 05:09:45],
+  name: "Samantha",
+  pets: [
+    %PetClinic.PetsClinicService.Pet{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+      age: 5,
+      id: 4,
+      inserted_at: ~N[2022-04-20 19:56:13],
+      name: "yesca",
+      owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+      owner_id: 3,
+      sex: "flemale",
+      type: "dog",
+      updated_at: ~N[2022-04-21 21:19:50]
+    },
+    %PetClinic.PetsClinicService.Pet{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+      age: 10,
+      id: 1,
+      inserted_at: ~N[2022-04-20 06:13:24],
+      name: "Bubafina",
+      owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+      owner_id: 3,
+      sex: "flemale",
+      type: "cat",
+      updated_at: ~N[2022-04-21 21:26:02]
+    }
+  ],
+  phone_num: 225896445,
+  updated_at: ~N[2022-04-21 05:09:45]
+}
+
+
+---------- CONSULTA DE LOS OWNERLESS RESTANTES -----------------------
+
+iex(22)> ownerless = Repo.all(from p in Pet, where: is_nil(p.owner_id), select: [p.name]
+...(22)> )
+[debug] QUERY OK source="pets" db=1.4ms idle=1860.0ms
+SELECT p0."name" FROM "pets" AS p0 WHERE (p0."owner_id" IS NULL) []
+[["jazmin"], ["rufo"]]
+
+
+---------- EXTRACCION DE OTRA PET -----------------------
+
+
+iex(24)> rufo = Repo.get_by(Pet, name: "rufo") |> Repo.preload(:owner)
+[debug] QUERY OK source="pets" db=1.0ms queue=0.1ms idle=1988.7ms
+SELECT p0."id", p0."age", p0."name", p0."sex", p0."type", p0."owner_id", p0."inserted_at", p0."updated_at" FROM "pets" AS p0 WHERE (p0."name" = $1) ["rufo"]
+%PetClinic.PetsClinicService.Pet{
+  __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+  age: 3,
+  id: 6,
+  inserted_at: ~N[2022-04-20 20:21:39],
+  name: "rufo",
+  owner: nil,
+  owner_id: nil,
+  sex: "male",
+  type: "dog",
+  updated_at: ~N[2022-04-20 20:58:36]
+}
+
+---------- AGREGAR LA PET A UN OWNER -----------------------
+
+iex(25)> chst = rufo |> change() |> put_assoc(:owner, angel)
+#Ecto.Changeset<
+  action: nil,
+  changes: %{
+    owner: #Ecto.Changeset<action: :update, changes: %{}, errors: [],
+     data: #PetClinic.PetClinicOwners.Owner<>, valid?: true>
+  },
+  errors: [],
+  data: #PetClinic.PetsClinicService.Pet<>,
+  valid?: true
+>
+iex(26)> Repo.update(chst)
+[debug] QUERY OK db=0.6ms idle=1502.0ms
+begin []
+[debug] QUERY OK db=1.4ms
+UPDATE "pets" SET "owner_id" = $1, "updated_at" = $2 WHERE "id" = $3 [1, ~N[2022-04-21 21:28:55], 6]
+[debug] QUERY OK db=10.8ms
+commit []
+{:ok,
+ %PetClinic.PetsClinicService.Pet{
+   __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+   age: 3,
+   id: 6,
+   inserted_at: ~N[2022-04-20 20:21:39],
+   name: "rufo",
+   owner: %PetClinic.PetClinicOwners.Owner{
+     __meta__: #Ecto.Schema.Metadata<:loaded, "owners">,
+     age: 26,
+     email: "angel@bunsan.io",
+     id: 1,
+     inserted_at: ~N[2022-04-21 04:19:43],
+     name: "Angel",
+     pets: [
+       %PetClinic.PetsClinicService.Pet{
+         __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+         age: 2,
+         id: 7,
+         inserted_at: ~N[2022-04-21 04:57:09],
+         name: "kira",
+         owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+         owner_id: 1,
+         sex: "flemale",
+         type: "cat",
+         updated_at: ~N[2022-04-21 04:57:09]
+       }
+     ],
+     phone_num: 222255874,
+     updated_at: ~N[2022-04-21 04:19:43]
+   },
+   owner_id: 1,
+   sex: "male",
+   type: "dog",
+   updated_at: ~N[2022-04-21 21:28:55]
+ }}
+ 
+ ---------- CONSULTA DE LA PET AGREGADA AL OWNER ANGEL-----------------------
+
+
+iex(28)> Repo.get_by(Owner, name: "Angel") |> Repo.preload(:pets)
+[debug] QUERY OK source="owners" db=2.2ms idle=1415.6ms
+SELECT o0."id", o0."age", o0."email", o0."name", o0."phone_num", o0."inserted_at", o0."updated_at" FROM "owners" AS o0 WHERE (o0."name" = $1) ["Angel"]
+[debug] QUERY OK source="pets" db=2.3ms idle=1418.2ms
+SELECT p0."id", p0."age", p0."name", p0."sex", p0."type", p0."owner_id", p0."inserted_at", p0."updated_at", p0."owner_id" FROM "pets" AS p0 WHERE (p0."owner_id" = $1) ORDER BY p0."owner_id" [1]
+%PetClinic.PetClinicOwners.Owner{
+  __meta__: #Ecto.Schema.Metadata<:loaded, "owners">,
+  age: 26,
+  email: "angel@bunsan.io",
+  id: 1,
+  inserted_at: ~N[2022-04-21 04:19:43],
+  name: "Angel",
+  pets: [
+    %PetClinic.PetsClinicService.Pet{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+      age: 2,
+      id: 7,
+      inserted_at: ~N[2022-04-21 04:57:09],
+      name: "kira",
+      owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+      owner_id: 1, 
+      sex: "flemale",
+      type: "cat",
+      updated_at: ~N[2022-04-21 04:57:09]
+    },
+    %PetClinic.PetsClinicService.Pet{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+      age: 3,
+      id: 6,
+      inserted_at: ~N[2022-04-20 20:21:39],
+      name: "rufo",
+      owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+      owner_id: 1,
+      sex: "male",
+      type: "dog",
+      updated_at: ~N[2022-04-21 21:28:55]
+    }
+  ],
+  phone_num: 222255874,
+  updated_at: ~N[2022-04-21 04:19:43]
+}
+
+
+
+
+--------------------CREATE PET  CON EXPERT PRECARGADO-----------------
+
+iex(5)> pet1 = %Pet{age: 5, name: "nena", pet_health_expert_id: 1, sex: "female", type: "dog"}
+%PetClinic.PetsClinicService.Pet{
+  __meta__: #Ecto.Schema.Metadata<:built, "pets">,
+  age: 5,
+  id: nil,
+  inserted_at: nil,
+  name: "nena",
+  owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+  owner_id: nil,
+  pet_health_expert: #Ecto.Association.NotLoaded<association :pet_health_expert is not loaded>,
+  pet_health_expert_id: 1,
+  sex: "female",
+  type: "dog",
+  updated_at: nil
+}
+iex(9)> Repo.insert(pet1)
+[debug] QUERY OK db=73.4ms queue=0.9ms idle=1468.0ms
+INSERT INTO "pets" ("age","name","pet_health_expert_id","sex","type","inserted_at","updated_at") VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING "id" [5, "nena", 1, "female", "dog", ~N[2022-04-22 01:05:27], ~N[2022-04-22 01:05:27]]
+{:ok,
+ %PetClinic.PetsClinicService.Pet{
+   __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+   age: 5,
+   id: 10,
+   inserted_at: ~N[2022-04-22 01:05:27],
+   name: "nena",
+   owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+   owner_id: nil,
+   pet_health_expert: #Ecto.Association.NotLoaded<association :pet_health_expert is not loaded>,
+   pet_health_expert_id: 1,
+   sex: "female",
+   type: "dog",
+   updated_at: ~N[2022-04-22 01:05:27]
+ }}
+ 
+ 
+ ---------------- REVISAR PET ----------------------
+
+ iex(11)> Repo.get_by(Pet, name: "nena") |> Repo.preload(:pet_health_expert)
+ [debug] QUERY OK source="pets" db=3.3ms queue=0.1ms idle=731.5ms
+ SELECT p0."id", p0."age", p0."name", p0."sex", p0."type", p0."owner_id", p0."pet_health_expert_id", p0."inserted_at", p0."updated_at" FROM "pets" AS p0 WHERE (p0."name" = $1) ["nena"]
+ [debug] QUERY OK source="experts" db=2.6ms queue=0.1ms idle=735.1ms
+ SELECT e0."id", e0."age", e0."email", e0."name", e0."specialities", e0."inserted_at", e0."updated_at", e0."id" FROM "experts" AS e0 WHERE (e0."id" = $1) [1] 
+ %PetClinic.PetsClinicService.Pet{
+   __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+   age: 5,
+   id: 10,
+   inserted_at: ~N[2022-04-22 01:05:27],
+   name: "nena",
+   owner: #Ecto.Association.NotLoaded<association :owner is not loaded>, 
+   owner_id: nil,
+   pet_health_expert: %PetClinic.PetsClinicExperts.PetHealthExpert{ 
+     __meta__: #Ecto.Schema.Metadata<:loaded, "experts">,
+     age: 27, 
+     email: "xochitl@petcare.com",
+     id: 1,
+     inserted_at: ~N[2022-04-20 15:27:54],
+     name: "Xochitl",
+     patients: #Ecto.Association.NotLoaded<association :patients is not loaded>,
+     specialities: "dog",
+     updated_at: ~N[2022-04-20 20:00:18]
+   },
+   pet_health_expert_id: 1,
+   sex: "female",
+   type: "dog",
+   updated_at: ~N[2022-04-22 01:05:27]
+ }
+ 
+ 
+ --------------- CREAR OTRA PET CON EXPERT PRECARGADO -----------
+ iex(12)> pet2 = %Pet{age: 3, name: "marra", pet_health_expert_id: 2, owner_id: 3,  sex: "male", type: "pig"}
+%PetClinic.PetsClinicService.Pet{
+  __meta__: #Ecto.Schema.Metadata<:built, "pets">,
+  age: 3,
+  id: nil,
+  inserted_at: nil,
+  name: "marra",
+  owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+  owner_id: 3,
+  pet_health_expert: #Ecto.Association.NotLoaded<association :pet_health_expert is not loaded>,
+  pet_health_expert_id: 2,
+  sex: "male",
+  type: "pig",
+  updated_at: nil
+}
+iex(13)> Repo.insert(pet2)          
+[debug] QUERY OK db=68.9ms queue=1.3ms idle=1114.8ms
+INSERT INTO "pets" ("age","name","owner_id","pet_health_expert_id","sex","type","inserted_at","updated_at") VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING "id" [3, "marra", 3, 2, "male", "pig", ~N[2022-04-22 01:09:28], ~N[2022-04-22 01:09:28]]
+{:ok,
+ %PetClinic.PetsClinicService.Pet{
+   __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+   age: 3,
+   id: 11,
+   inserted_at: ~N[2022-04-22 01:09:28],
+   name: "marra",
+   owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+   owner_id: 3,
+   pet_health_expert: #Ecto.Association.NotLoaded<association :pet_health_expert is not loaded>,
+   pet_health_expert_id: 2,
+   sex: "male",
+   type: "pig",
+   updated_at: ~N[2022-04-22 01:09:28]
+ }}
+ 
+ ------------------ REVISAR PET ------------------
+ 
+ iex(15)> Repo.get_by(Pet, name: "marra") |> Repo.preload(:pet_health_expert) |> Repo.preload(:owner)
+[debug] QUERY OK source="pets" db=0.7ms queue=0.1ms idle=1044.0ms
+SELECT p0."id", p0."age", p0."name", p0."sex", p0."type", p0."owner_id", p0."pet_health_expert_id", p0."inserted_at", p0."updated_at" FROM "pets" AS p0 WHERE (p0."name" = $1) ["marra"]
+[debug] QUERY OK source="experts" db=1.3ms queue=0.1ms idle=1045.2ms
+SELECT e0."id", e0."age", e0."email", e0."name", e0."specialities", e0."inserted_at", e0."updated_at", e0."id" FROM "experts" AS e0 WHERE (e0."id" = $1) [2]
+[debug] QUERY OK source="owners" db=0.7ms queue=0.7ms idle=1047.0ms
+SELECT o0."id", o0."age", o0."email", o0."name", o0."phone_num", o0."inserted_at", o0."updated_at", o0."id" FROM "owners" AS o0 WHERE (o0."id" = $1) [3]
+%PetClinic.PetsClinicService.Pet{
+  __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+  age: 3,
+  id: 11,
+  inserted_at: ~N[2022-04-22 01:09:28],
+  name: "marra",
+  owner: %PetClinic.PetClinicOwners.Owner{
+    __meta__: #Ecto.Schema.Metadata<:loaded, "owners">,
+    age: 5,
+    email: "sam@owner.com",
+    id: 3,
+    inserted_at: ~N[2022-04-21 05:09:45],
+    name: "Samantha",
+    pets: #Ecto.Association.NotLoaded<association :pets is not loaded>,
+    phone_num: 225896445,
+    updated_at: ~N[2022-04-21 05:09:45]
+  },
+  owner_id: 3,
+  pet_health_expert: %PetClinic.PetsClinicExperts.PetHealthExpert{
+    __meta__: #Ecto.Schema.Metadata<:loaded, "experts">,
+    age: 23,
+    email: "susan@petcare.com",
+    id: 2,
+    inserted_at: ~N[2022-04-20 20:00:08],
+    name: "Susan ",
+    patients: #Ecto.Association.NotLoaded<association :patients is not loaded>,
+    specialities: "cat",
+    updated_at: ~N[2022-04-20 20:00:08]
+  },
+  pet_health_expert_id: 2,
+  sex: "male",
+  type: "pig",
+  updated_at: ~N[2022-04-22 01:09:28]
+}
+
+
+----------------CONSULTAR LAS PET SIN DOCTOR --------------------
+
+iex(16)> expertless = Repo.all(from p in Pet, where: is_nil(p.pet_health_expert_id), select: [p.name])            
+[debug] QUERY OK source="pets" db=0.8ms queue=0.8ms idle=1114.6ms
+SELECT p0."name" FROM "pets" AS p0 WHERE (p0."pet_health_expert_id" IS NULL) []
+[["jazmin"], ["kira"], ["nissi"], ["jack"], ["yesca"], ["Bubafina"], ["rufo"]]
+
+
+------------- ASIGNAR DOCTORES A LAS PETS ------------------
+
+iex(24)> susi = Repo.get_by(PetHealthExpert, name: "Susan ") |> Repo.preload(:patients)
+[debug] QUERY OK source="experts" db=0.8ms queue=0.1ms idle=532.9ms
+SELECT e0."id", e0."age", e0."email", e0."name", e0."specialities", e0."inserted_at", e0."updated_at" FROM "experts" AS e0 WHERE (e0."name" = $1) ["Susan "]
+[debug] QUERY OK source="pets" db=0.9ms queue=1.9ms idle=538.4ms
+SELECT p0."id", p0."age", p0."name", p0."sex", p0."type", p0."owner_id", p0."pet_health_expert_id", p0."inserted_at", p0."updated_at", p0."pet_health_expert_id" FROM "pets" AS p0 WHERE (p0."pet_health_expert_id" = $1) ORDER BY p0."pet_health_expert_id" [2]
+%PetClinic.PetsClinicExperts.PetHealthExpert{
+  __meta__: #Ecto.Schema.Metadata<:loaded, "experts">,
+  age: 23,
+  email: "susan@petcare.com",
+  id: 2,
+  inserted_at: ~N[2022-04-20 20:00:08],
+  name: "Susan ",
+  patients: [
+    %PetClinic.PetsClinicService.Pet{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+      age: 3,
+      id: 11,
+      inserted_at: ~N[2022-04-22 01:09:28],
+      name: "marra",
+      owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+      owner_id: 3,
+      pet_health_expert: #Ecto.Association.NotLoaded<association :pet_health_expert is not loaded>,
+      pet_health_expert_id: 2,
+      sex: "male",
+      type: "pig",
+      updated_at: ~N[2022-04-22 01:09:28]
+    }
+  ],
+  specialities: "cat",
+  updated_at: ~N[2022-04-20 20:00:08]
+}
+
+
+
+------------- asignar un doctor a la pet ---------------
+
+------------- extraer doctor ----------------------
+iex(2)> susi = Repo.get_by(PetHealthExpert, name: "Susan ") |> Repo.preload(:patients)
+[debug] QUERY OK source="experts" db=1.2ms queue=1.8ms idle=1632.4ms
+SELECT e0."id", e0."age", e0."email", e0."name", e0."specialities", e0."inserted_at", e0."updated_at" FROM "experts" AS e0 WHERE (e0."name" = $1) ["Susan "]
+[debug] QUERY OK source="pets" db=0.5ms queue=0.7ms idle=1640.2ms
+SELECT p0."id", p0."age", p0."name", p0."sex", p0."type", p0."owner_id", p0."pet_health_expert_id", p0."inserted_at", p0."updated_at", p0."pet_health_expert_id" FROM "pets" AS p0 WHERE (p0."pet_health_expert_id" = $1) ORDER BY p0."pet_health_expert_id" [2]
+%PetClinic.PetsClinicExperts.PetHealthExpert{
+  __meta__: #Ecto.Schema.Metadata<:loaded, "experts">,
+  age: 23,
+  email: "susan@petcare.com",
+  id: 2,
+  inserted_at: ~N[2022-04-20 20:00:08],
+  name: "Susan ",
+  patients: [
+    %PetClinic.PetsClinicService.Pet{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+      age: 3,
+      id: 11,
+      inserted_at: ~N[2022-04-22 01:09:28],
+      name: "marra",
+      owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+      owner_id: 3,
+      pet_health_expert: #Ecto.Association.NotLoaded<association :pet_health_expert is not loaded>,
+      pet_health_expert_id: 2,
+      sex: "male",
+      type: "pig",
+      updated_at: ~N[2022-04-22 01:09:28]
+    }
+  ],
+  specialities: "cat",
+  updated_at: ~N[2022-04-20 20:00:08]
+}
+
+-------------- extraer pet 1 ----------------
+
+iex(3)> jazmin = Repo.get_by(Pet, name: "jazmin") |> Repo.preload(:pet_health_expert)
+[debug] QUERY OK source="pets" db=0.6ms queue=1.4ms idle=1991.5ms
+SELECT p0."id", p0."age", p0."name", p0."sex", p0."type", p0."owner_id", p0."pet_health_expert_id", p0."inserted_at", p0."updated_at" FROM "pets" AS p0 WHERE (p0."name" = $1) ["jazmin"]
+%PetClinic.PetsClinicService.Pet{
+  __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+  age: 1,
+  id: 5,
+  inserted_at: ~N[2022-04-20 19:59:20],
+  name: "jazmin",
+  owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+  owner_id: nil,
+  pet_health_expert: nil,
+  pet_health_expert_id: nil,
+  sex: "flemale",
+  type: "frog",
+  updated_at: ~N[2022-04-20 19:59:20]
+}
+
+iex(4)> chst = jazmin |> change() |> put_assoc(:pet_health_expert, susi)
+#Ecto.Changeset<
+  action: nil,
+  changes: %{
+    pet_health_expert: #Ecto.Changeset<action: :update, changes: %{},
+     errors: [], data: #PetClinic.PetsClinicExperts.PetHealthExpert<>,
+     valid?: true>
+  },
+  errors: [],
+  data: #PetClinic.PetsClinicService.Pet<>,
+  valid?: true
+>
+
+--------------- ACTUALIZAR PET --------------------
+
+iex(5)> Repo.update(chst)
+[debug] QUERY OK db=0.3ms idle=1349.3ms
+begin []
+[debug] QUERY OK db=1.2ms
+UPDATE "pets" SET "pet_health_expert_id" = $1, "updated_at" = $2 WHERE "id" = $3 [2, ~N[2022-04-22 03:42:40], 5]
+[debug] QUERY OK db=61.4ms
+commit []
+{:ok,
+ %PetClinic.PetsClinicService.Pet{
+   __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+   age: 1,
+   id: 5,
+   inserted_at: ~N[2022-04-20 19:59:20],
+   name: "jazmin",
+   owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+   owner_id: nil,
+   pet_health_expert: %PetClinic.PetsClinicExperts.PetHealthExpert{
+     __meta__: #Ecto.Schema.Metadata<:loaded, "experts">,
+     age: 23,
+     email: "susan@petcare.com",
+     id: 2,
+     inserted_at: ~N[2022-04-20 20:00:08],
+     name: "Susan ",
+     patients: [
+       %PetClinic.PetsClinicService.Pet{
+         __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+         age: 3,
+         id: 11,
+         inserted_at: ~N[2022-04-22 01:09:28],
+         name: "marra",
+         owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+         owner_id: 3,
+         pet_health_expert: #Ecto.Association.NotLoaded<association :pet_health_expert is not loaded>,
+         pet_health_expert_id: 2,
+         sex: "male",
+         type: "pig",
+         updated_at: ~N[2022-04-22 01:09:28]
+       }
+     ],
+     specialities: "cat",
+     updated_at: ~N[2022-04-20 20:00:08]
+   },
+   pet_health_expert_id: 2,
+   sex: "flemale",
+   type: "frog",
+   updated_at: ~N[2022-04-22 03:42:40]
+ }}
+ 
+ ------------------CONSULTAR PET -----------------
+ 
+iex(6)> Repo.get_by(Pet, name: "jazmin") |> Repo.preload(:pet_health_expert)
+[debug] QUERY OK source="pets" db=2.1ms idle=1983.6ms
+SELECT p0."id", p0."age", p0."name", p0."sex", p0."type", p0."owner_id", p0."pet_health_expert_id", p0."inserted_at", p0."updated_at" FROM "pets" AS p0 WHERE (p0."name" = $1) ["jazmin"]
+[debug] QUERY OK source="experts" db=0.5ms queue=0.8ms idle=1986.3ms
+SELECT e0."id", e0."age", e0."email", e0."name", e0."specialities", e0."inserted_at", e0."updated_at", e0."id" FROM "experts" AS e0 WHERE (e0."id" = $1) [2]
+%PetClinic.PetsClinicService.Pet{
+  __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+  age: 1,
+  id: 5,
+  inserted_at: ~N[2022-04-20 19:59:20],
+  name: "jazmin",
+  owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+  owner_id: nil,
+  pet_health_expert: %PetClinic.PetsClinicExperts.PetHealthExpert{
+    __meta__: #Ecto.Schema.Metadata<:loaded, "experts">,
+    age: 23,
+    email: "susan@petcare.com",
+    id: 2,
+    inserted_at: ~N[2022-04-20 20:00:08],
+    name: "Susan ",
+    patients: #Ecto.Association.NotLoaded<association :patients is not loaded>,
+    specialities: "cat",
+    updated_at: ~N[2022-04-20 20:00:08]
+  },
+  pet_health_expert_id: 2,
+  sex: "flemale",
+  type: "frog",
+  updated_at: ~N[2022-04-22 03:42:40]
+}
+
+
+--------------- ASIGNANDO DOCTOR A OTRA MASCOTA-----------
+
+iex(7)> kira = Repo.get_by(Pet, name: "kira") |> Repo.preload(:pet_health_expert)    
+[debug] QUERY OK source="pets" db=3.0ms queue=0.1ms idle=938.1ms
+SELECT p0."id", p0."age", p0."name", p0."sex", p0."type", p0."owner_id", p0."pet_health_expert_id", p0."inserted_at", p0."updated_at" FROM "pets" AS p0 WHERE (p0."name" = $1) ["kira"]
+%PetClinic.PetsClinicService.Pet{
+  __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+  age: 2,
+  id: 7,
+  inserted_at: ~N[2022-04-21 04:57:09],
+  name: "kira",
+  owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+  owner_id: 1,
+  pet_health_expert: nil, 
+  pet_health_expert_id: nil,
+  sex: "flemale",
+  type: "cat",
+  updated_at: ~N[2022-04-21 04:57:09]
+}
+iex(8)> chst = kira |> change() |> put_assoc(:pet_health_expert, susi)           
+#Ecto.Changeset<
+  action: nil,
+  changes: %{
+    pet_health_expert: #Ecto.Changeset<action: :update, changes: %{},
+     errors: [], data: #PetClinic.PetsClinicExperts.PetHealthExpert<>,
+     valid?: true>
+  },
+  errors: [],
+  data: #PetClinic.PetsClinicService.Pet<>,
+  valid?: true
+>
+iex(9)> Repo.update(chst)                                                        
+[debug] QUERY OK db=0.6ms queue=0.1ms idle=437.3ms
+begin []
+[debug] QUERY OK db=1.8ms
+UPDATE "pets" SET "pet_health_expert_id" = $1, "updated_at" = $2 WHERE "id" = $3 [2, ~N[2022-04-22 03:45:28], 7]
+[debug] QUERY OK db=24.2ms
+commit []
+{:ok,
+ %PetClinic.PetsClinicService.Pet{
+   __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+   age: 2,
+   id: 7,
+   inserted_at: ~N[2022-04-21 04:57:09],
+   name: "kira",
+   owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+   owner_id: 1,
+   pet_health_expert: %PetClinic.PetsClinicExperts.PetHealthExpert{
+     __meta__: #Ecto.Schema.Metadata<:loaded, "experts">,
+     age: 23,
+     email: "susan@petcare.com",
+     id: 2,
+     inserted_at: ~N[2022-04-20 20:00:08],
+     name: "Susan ",
+     patients: [
+       %PetClinic.PetsClinicService.Pet{
+         __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+         age: 3,
+         id: 11,
+         inserted_at: ~N[2022-04-22 01:09:28],
+         name: "marra",
+         owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+         owner_id: 3,
+         pet_health_expert: #Ecto.Association.NotLoaded<association :pet_health_expert is not loaded>,
+         pet_health_expert_id: 2,
+         sex: "male",
+         type: "pig",
+         updated_at: ~N[2022-04-22 01:09:28]
+       }
+     ],
+     specialities: "cat",
+     updated_at: ~N[2022-04-20 20:00:08]
+   },
+   pet_health_expert_id: 2,
+   sex: "flemale",
+   type: "cat",
+   updated_at: ~N[2022-04-22 03:45:28]
+ }}
+
+--------------- CONSULTAR PET 2  ------------------
+
+iex(10)> Repo.get_by(Pet, name: "kira") |> Repo.preload(:pet_health_expert)       
+[debug] QUERY OK source="pets" db=1.0ms idle=1398.2ms
+SELECT p0."id", p0."age", p0."name", p0."sex", p0."type", p0."owner_id", p0."pet_health_expert_id", p0."inserted_at", p0."updated_at" FROM "pets" AS p0 WHERE (p0."name" = $1) ["kira"]
+[debug] QUERY OK source="experts" db=2.4ms queue=0.1ms idle=1399.4ms
+SELECT e0."id", e0."age", e0."email", e0."name", e0."specialities", e0."inserted_at", e0."updated_at", e0."id" FROM "experts" AS e0 WHERE (e0."id" = $1) [2]
+%PetClinic.PetsClinicService.Pet{
+  __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+  age: 2,
+  id: 7,
+  inserted_at: ~N[2022-04-21 04:57:09],
+  name: "kira",
+  owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+  owner_id: 1,
+  pet_health_expert: %PetClinic.PetsClinicExperts.PetHealthExpert{
+    __meta__: #Ecto.Schema.Metadata<:loaded, "experts">,
+    age: 23,
+    email: "susan@petcare.com",
+    id: 2,
+    inserted_at: ~N[2022-04-20 20:00:08],
+    name: "Susan ",
+    patients: #Ecto.Association.NotLoaded<association :patients is not loaded>,
+    specialities: "cat",
+    updated_at: ~N[2022-04-20 20:00:08]
+  },
+  pet_health_expert_id: 2,
+  sex: "flemale",
+  type: "cat",
+  updated_at: ~N[2022-04-22 03:45:28]
+}
+
+
+--------------- 
+
+  def changeset(pet, attrs) do
+    pet
+    |> cast(attrs, [:name, :age, :type, :sex])
+    |> validate_required([:name, :age, :type, :sex])
+    |> validate_number(:age, greater_than_or_equal_to: 0)
+
+  end

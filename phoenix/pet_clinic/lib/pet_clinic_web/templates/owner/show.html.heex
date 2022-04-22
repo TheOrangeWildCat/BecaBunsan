@@ -1,0 +1,26 @@
+<section>
+  <main>
+    <div id="card">
+      <div id="container">
+        <div id="foto">
+          <img src={Routes.static_path(@conn, "/images/owner.png" )} alt="Avatar" />
+          <h2>
+            <%= @owner.name %>
+          </h2>
+        </div>
+        <strong>Age:</strong>
+        <%= @owner.age %>
+          <br>
+          <strong>email:</strong>
+          <%= @owner.email %>
+            <br>
+            <strong>Phone:</strong>
+            <%= @owner.phone_num %>
+              <br>
+      </div>
+    </div>
+  </main>
+</section>
+
+<span><%= link "Edit", to: Routes.owner_path(@conn, :edit, @owner) %></span> |
+<span><%= link "Back", to: Routes.owner_path(@conn, :index) %></span>
