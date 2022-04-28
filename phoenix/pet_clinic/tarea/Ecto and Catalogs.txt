@@ -1,0 +1,230 @@
+ 
+iex(6)> Repo.all(from p in Pet, select: [p.name, p.sex])
+[debug] QUERY OK source="pets" db=2.6ms queue=0.1ms idle=1216.1ms
+SELECT p0."name", p0."sex" FROM "pets" AS p0 []
+↳ :erl_eval.do_apply/6, at: erl_eval.erl#685
+[
+  ["Bubafina", :female],
+  ["chispita", :female],
+  ["yesca", :female],
+  ["shaggy", :male],
+  ["jazmin", :female],
+  ["tribilin", :maale],
+  ["nissi", :feemale]
+]
+
+ --------------- BASH -----------------
+angel@angel:~/.../pet_clinic$ mix ecto.migrate
+
+08:22:42.184 [info]  == Running 20220427130631 PetClinic.Repo.Migrations.CorrectPetSex.change/0 forward
+
+08:22:42.212 [debug] QUERY OK db=0.4ms
+update pets set sex = lower(sex) []
+
+08:22:42.214 [debug] QUERY OK db=1.0ms
+update pets set sex = 'female' where sex not in ('male', 'female') []
+
+08:22:42.216 [info]  == Migrated 20220427130631 in 0.0s
+angel@angel:~/.../pet_clinic$ 
+
+
+---------------------BEAM -------------------
+iex(9)> Repo.all(from p in Pet, select: [p.name, p.sex])
+[debug] QUERY OK source="pets" db=0.4ms queue=0.4ms idle=1356.7ms
+SELECT p0."name", p0."sex" FROM "pets" AS p0 []
+↳ :erl_eval.do_apply/6, at: erl_eval.erl#685
+[
+  ["Bubafina", :female],
+  ["chispita", :female],
+  ["yesca", :female],
+  ["shaggy", :male],
+  ["jazmin", :female],
+  ["tribilin", :female],
+  ["nissi", :female]
+]
+
+
+
+
+
+--------------
+
+iex(10)> Repo.all(Pet)                                    
+[debug] QUERY OK source="pets" db=2.2ms idle=1876.2ms
+SELECT p0."id", p0."age", p0."name", p0."sex", p0."type", p0."owner_id", p0."preferred_expert_id", p0."inserted_at", p0."updated_at" FROM "pets" AS p0 []
+↳ :erl_eval.do_apply/6, at: erl_eval.erl#685
+[
+  %PetClinic.PetClinicService.Pet{
+    __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+    age: 10,
+    id: 1,
+    inserted_at: ~N[2022-04-26 21:15:01], 
+    name: "Bubafina",
+    owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+    owner_id: nil,
+    preferred_expert: #Ecto.Association.NotLoaded<association :preferred_expert is not loaded>,
+    preferred_expert_id: nil,
+    sex: :female,
+    type: "cat",
+    updated_at: ~N[2022-04-26 21:15:01]
+  },
+  %PetClinic.PetClinicService.Pet{
+    __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+    age: 0,
+    id: 2,
+    inserted_at: ~N[2022-04-26 21:16:24],
+    name: "chispita",
+    owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+    owner_id: nil,
+    preferred_expert: #Ecto.Association.NotLoaded<association :preferred_expert is not loaded>,
+    preferred_expert_id: nil,
+    sex: :female,
+    type: "dog",
+    updated_at: ~N[2022-04-26 21:16:24]
+  },
+  %PetClinic.PetClinicService.Pet{
+    __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+    age: 5,
+    id: 3,
+    inserted_at: ~N[2022-04-26 21:16:45],
+    name: "yesca",
+    owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+    owner_id: nil,
+    preferred_expert: #Ecto.Association.NotLoaded<association :preferred_expert is not loaded>,
+    preferred_expert_id: nil,
+    sex: :female,
+    type: "dog",
+    updated_at: ~N[2022-04-26 21:16:45]
+  },
+  %PetClinic.PetClinicService.Pet{
+    __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+    age: 5,
+    id: 4,
+    inserted_at: ~N[2022-04-27 03:47:40],
+    name: "shaggy",
+    owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+    owner_id: 1,
+    preferred_expert: #Ecto.Association.NotLoaded<association :preferred_expert is not loaded>,
+    preferred_expert_id: nil,
+    sex: :male,
+    type: "dog",
+    updated_at: ~N[2022-04-27 03:47:40]
+  },
+  %PetClinic.PetClinicService.Pet{
+    __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+    age: 0,
+    id: 5,
+    inserted_at: ~N[2022-04-27 04:46:05],
+    name: "jazmin",
+    owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+    owner_id: 1,
+    preferred_expert: #Ecto.Association.NotLoaded<association :preferred_expert is not loaded>,
+    preferred_expert_id: nil,
+    sex: :female,
+    type: "frog",
+    updated_at: ~N[2022-04-27 04:46:05]
+  },
+  %PetClinic.PetClinicService.Pet{ 
+    __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+    age: 0,
+    id: 6,
+    inserted_at: ~N[2022-04-27 13:01:29],
+    name: "tribilin",
+    owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+    owner_id: 1,
+    preferred_expert: #Ecto.Association.NotLoaded<association :preferred_expert is not loaded>,
+    preferred_expert_id: 1,
+    sex: :female,
+    type: "hamster",
+    updated_at: ~N[2022-04-27 13:01:29]
+  },
+  %PetClinic.PetClinicService.Pet{
+    __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+    age: 2,
+    id: 7,
+    inserted_at: ~N[2022-04-27 13:02:21],
+    name: "nissi",
+    owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+    owner_id: 1,
+    preferred_expert: #Ecto.Association.NotLoaded<association :preferred_expert is not loaded>,
+    preferred_expert_id: 1,
+    sex: :female,
+    type: "cat",
+    updated_at: ~N[2022-04-27 13:02:21]
+  }
+]
+
+
+
+
+-------------BASH ----------------
+
+angel@angel:~/.../pet_clinic$ mix ecto.gen.migration create_pet_types_table
+Compiling 1 file (.ex)
+Generated pet_clinic app
+* creating priv/repo/migrations/20220427134149_create_pet_types_table.exs
+angel@angel:~/.../pet_clinic$ mix ecto.migrate
+
+08:43:38.836 [info]  == Running 20220427134149 PetClinic.Repo.Migrations.CreatePetTypesTable.change/0 forward
+
+08:43:38.839 [info]  create table pet_types
+
+08:43:39.003 [info]  == Migrated 20220427134149 in 0.1s
+angel@angel:~/.../pet_clinic$ 
+
+
+
+
+------------------------BEAM-------------
+iex(2)> Repo.all(Pet) |> Repo.preload(:type)
+[debug] QUERY OK source="pets" db=8.4ms decode=1.9ms queue=0.6ms idle=479.6ms
+SELECT p0."id", p0."age", p0."name", p0."sex", p0."type_id", p0."owner_id", p0."preferred_expert_id", p0."inserted_at", p0."updated_at" FROM "pets" AS p0 []
+↳ :erl_eval.do_apply/6, at: erl_eval.erl#685
+[debug] QUERY OK source="pet_types" db=0.7ms queue=0.8ms idle=508.2ms
+SELECT p0."id", p0."name", p0."inserted_at", p0."updated_at", p0."id" FROM "pet_types" AS p0 WHERE (p0."id" = ANY($1)) [[1, 4, 3, 2]]
+↳ :erl_eval.do_apply/6, at: erl_eval.erl#685
+[
+  %PetClinic.PetClinicService.Pet{
+    __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+    age: 10,
+    id: 1,
+    inserted_at: ~N[2022-04-26 21:15:01],
+    name: "Bubafina",
+    owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+    owner_id: nil,
+    preferred_expert: #Ecto.Association.NotLoaded<association :preferred_expert is not loaded>,
+    preferred_expert_id: nil,
+    sex: :female,
+    type: %PetClinic.PetClinicService.PetType{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "pet_types">,
+      id: 1,
+      inserted_at: ~N[2022-04-27 15:05:04], 
+      name: "cat",
+      updated_at: ~N[2022-04-27 15:05:04]
+    },
+    type_id: 1,
+    updated_at: ~N[2022-04-26 21:15:01]
+  },
+  %PetClinic.PetClinicService.Pet{
+    __meta__: #Ecto.Schema.Metadata<:loaded, "pets">,
+    age: 0,
+    id: 2,
+    inserted_at: ~N[2022-04-26 21:16:24], 
+    name: "chispita",
+    owner: #Ecto.Association.NotLoaded<association :owner is not loaded>,
+    owner_id: nil,
+    preferred_expert: #Ecto.Association.NotLoaded<association :preferred_expert is not loaded>,
+    preferred_expert_id: nil,
+    sex: :female,
+    type: %PetClinic.PetClinicService.PetType{
+      __meta__: #Ecto.Schema.Metadata<:loaded, "pet_types">,
+      id: 2,
+      inserted_at: ~N[2022-04-27 15:05:04],
+      name: "dog",
+      updated_at: ~N[2022-04-27 15:05:04]
+    },
+    type_id: 2,
+    updated_at: ~N[2022-04-26 21:16:24]
+  }
+
+  ... ]
