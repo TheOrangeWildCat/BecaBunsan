@@ -5,8 +5,8 @@
     <tr>
       <th>Name</th>
       <th>Age</th>
-      <th>Phone num</th>
       <th>Email</th>
+      <th>Phone num</th>
 
       <th></th>
     </tr>
@@ -16,8 +16,8 @@
     <tr>
       <td><%= owner.name %></td>
       <td><%= owner.age %></td>
-      <td><%= owner.phone_num %></td>
       <td><%= owner.email %></td>
+      <td><%= owner.phone_num %></td>
 
       <td>
         <span><%= link "Show", to: Routes.owner_path(@conn, :show, owner) %></span>

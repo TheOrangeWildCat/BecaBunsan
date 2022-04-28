@@ -1,30 +1,28 @@
-<section>
-  <main>
-    <div id="card">
-      <div id="container">
-        <div id="foto">
-          <img src={Routes.static_path(@conn, "/images/dino.png" )} alt="Avatar" />
-          <h2>
-            <%= @pet.name %>
-          </h2>
-        </div>
-        <strong>Age:</strong>
-        <%= @pet.age %>
-          <br>
-          <strong>Type:</strong>
-          <%= @pet.type %>
-            <br>
-            <strong>Sex:</strong>
-            <%= @pet.sex %>
-              <br>
-      </div>
-    </div>
-  </main>
-</section>
+<h1>Show Pet</h1>
 
-<span>
-  <%= link "Edit" , to: Routes.pet_path(@conn, :edit, @pet) %>
-</span> |
-<span>
-  <%= link "Back" , to: Routes.pet_path(@conn, :index) %>
-</span>
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @pet.name %>
+  </li>
+
+  <li>
+    <strong>Age:</strong>
+    <%= @pet.age %>
+  </li>
+
+  <li>
+    <strong>Type:</strong>
+    <%= @pet.type %>
+  </li>
+
+  <li>
+    <strong>Sex:</strong>
+    <%= @pet.sex %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.pet_path(@conn, :edit, @pet) %></span> |
+<span><%= link "Back", to: Routes.pet_path(@conn, :index) %></span>

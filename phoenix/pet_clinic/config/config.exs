@@ -15,11 +15,11 @@ config :pet_clinic, PetClinicWeb.Endpoint,
   url: [host: "localhost"],
   render_errors: [view: PetClinicWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: PetClinic.PubSub,
-  live_view: [signing_salt: "eO3e2ObC"]
+  live_view: [signing_salt: "CW9s4hrp"]
 
 # Configure esbuild (the version is required)
 config :esbuild,
-  version: "0.14.0",
+  version: "0.14.29",
   default: [
     args:
       ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),

@@ -17,7 +17,7 @@ config :pet_clinic, PetClinic.Repo,
 # you can enable the server option below.
 config :pet_clinic, PetClinicWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "/VM/FCiDcuJhOi57k5UwvC3PGb2VERAuY0LLjFvX8kaQddpQ1TNTH93CT/mYi/Al",
+  secret_key_base: "THpNdUGm78dNnf6C3kjuRqWuQiKyMnXvBKiTTb/IhoK2VG88CnjN46lqj43GENBH",
   server: false
 
 # Print only warnings and errors during test

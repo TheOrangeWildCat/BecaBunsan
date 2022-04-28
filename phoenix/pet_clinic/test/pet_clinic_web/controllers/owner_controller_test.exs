@@ -1,10 +1,10 @@
 defmodule PetClinicWeb.OwnerControllerTest do
   use PetClinicWeb.ConnCase
 
-  import PetClinic.PetClinicOwnersFixtures
+  import PetClinic.PetClinicServiceFixtures
 
-  @create_attrs %{age: 42, email: "some email", name: "some name", phone_num: 42}
-  @update_attrs %{age: 43, email: "some updated email", name: "some updated name", phone_num: 43}
+  @create_attrs %{age: 42, email: "some email", name: "some name", phone_num: "some phone_num"}
+  @update_attrs %{age: 43, email: "some updated email", name: "some updated name", phone_num: "some updated phone_num"}
   @invalid_attrs %{age: nil, email: nil, name: nil, phone_num: nil}
 
   describe "index" do

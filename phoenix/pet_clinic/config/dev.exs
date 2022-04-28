@@ -6,6 +6,7 @@ config :pet_clinic, PetClinic.Repo,
   password: "postgres",
   hostname: "localhost",
   database: "pet_clinic_dev",
+  stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
@@ -22,7 +23,7 @@ config :pet_clinic, PetClinicWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "BtMDEkOCNZD4xnU9LSwPr7D4WxgoJn5NKFzSoWP0SBkbZSbOS3Gd7L3zgABAeJHW",
+  secret_key_base: "p5cYmyNl67zTaFM4b8JVWs9+ZJaV8/RKa3MEpsWFeGZOrqAJ75b8GQnxgfd4QNsd",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}

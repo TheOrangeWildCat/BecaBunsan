@@ -1,7 +1,7 @@
 defmodule PetClinicWeb.PetControllerTest do
   use PetClinicWeb.ConnCase
 
-  import PetClinic.PetsClinicServiceFixtures
+  import PetClinic.PetClinicServiceFixtures
 
   @create_attrs %{age: 42, name: "some name", sex: "some sex", type: "some type"}
   @update_attrs %{age: 43, name: "some updated name", sex: "some updated sex", type: "some updated type"}

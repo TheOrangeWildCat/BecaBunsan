@@ -7,7 +7,7 @@ defmodule PetClinicWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_pet_clinic_key",
-    signing_salt: "uZSsDBSK"
+    signing_salt: "Zbl2Qbd5"
   ]
 
   # socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]

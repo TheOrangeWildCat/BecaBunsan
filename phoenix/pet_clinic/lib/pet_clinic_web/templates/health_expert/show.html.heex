@@ -1,0 +1,33 @@
+<h1>Show Health expert</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @health_expert.name %>
+  </li>
+
+  <li>
+    <strong>Age:</strong>
+    <%= @health_expert.age %>
+  </li>
+
+  <li>
+    <strong>Email:</strong>
+    <%= @health_expert.email %>
+  </li>
+
+  <li>
+    <strong>Sex:</strong>
+    <%= @health_expert.sex %>
+  </li>
+
+  <li>
+    <strong>Specialities:</strong>
+    <%= @health_expert.specialities %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.health_expert_path(@conn, :edit, @health_expert) %></span> |
+<span><%= link "Back", to: Routes.health_expert_path(@conn, :index) %></span>

@@ -1,5 +1,3 @@
-
-
 -----------------CREAR PET CON OWNER ------------------------
 
 iex(17)> kira = %Pet{age: 2, name: "kira", owner_id: 1, sex: "flemale", type: "cat"}

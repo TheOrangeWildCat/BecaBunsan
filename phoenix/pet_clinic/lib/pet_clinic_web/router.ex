@@ -16,11 +16,10 @@ defmodule PetClinicWeb.Router do
 
   scope "/", PetClinicWeb do
     pipe_through :browser
-    get "/foo", PageController, :index
+
     get "/", PageController, :index
     resources "/pets", PetController
-    resources "/experts", PetHealthExpertController
-    get "/pets/by_type/:type", PetController, :index_by_type   #solo cambiar :type por cat/dog...
+    resources "/health_experts", HealthExpertController
     resources "/owners", OwnerController
   end
 
