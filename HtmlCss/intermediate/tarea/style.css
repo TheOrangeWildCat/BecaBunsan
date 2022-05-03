@@ -1,0 +1,313 @@
+@import "./reset-style.css";
+@import "./variables.css";
+
+
+/** header elements*/
+header {
+  background: #4a4473;
+  color: #eceff6;
+
+
+  
+}
+/* header .container {
+  position: relative;
+ 
+
+} */
+
+.container {
+  z-index: 3;
+  width: 85%;
+  padding-right: 16px;
+  padding-left: 16px; 
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 24px;
+  text-align: left;
+}
+
+.container2{
+  width: 50%;
+  margin-left: 10px;
+
+}
+
+/** menu */
+
+#menu .menu-item:hover {
+  color: #3d2954;
+}
+#menu .menu-item {
+  text-decoration: none;
+  color: rgba(69,117,207,.75);
+}
+#menu, #menu .menu-item {
+  display: flex;
+  position: relative;
+}
+#menu .menu-item.active {
+  color: #3d2954;
+}
+
+#menu {
+  box-shadow: 0px 2px 4px rgba(156, 165, 187, 0.15),0 7px 20px rgba(201,209,230,.3);
+  border-radius: 6px;
+  background-color: #fff;
+  padding: 16px;
+  margin-top: 16px;
+  margin-bottom: -24px;
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 100px;
+
+} 
+
+
+
+
+/**  body elements */
+body {
+  background-color: #dae0ee;
+  background-size: cover;
+  background-repeat: repeat-x;
+  font-size: 16px;
+  font-weight: 400;
+  height: max-content;
+  font-family: 'Nunito', sans-serif;
+
+
+}
+
+
+/** flex */
+  .just-items-sb {
+    justify-content: space-between;
+
+    
+  }
+  .just-items-se {
+    justify-content: space-evenly;
+    
+  }
+  .flex-column {
+    flex-direction: column;
+    
+  }
+  .flex-row {
+    flex-direction: row;
+    
+  }
+  .display-flex {
+    display: flex;
+    gap: 1px;
+    
+  }
+  
+
+  /** grid */
+
+  .display-grid{
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(auto, auto);
+   
+    
+  }
+  .system{
+    margin-top: 10px;
+    grid-column: 1/4;
+    grid-row: 1;
+  }
+
+  .box{
+    background-color: #fff;
+    box-shadow: 0px 2px 4px rgba(156, 165, 187, 0.15),0 7px 20px rgba(201,209,230,.3);
+    border-radius: 8px;
+    padding: 16px;
+    
+  }
+  .mbottom{
+    margin-bottom: 10px;
+  }
+  .mtop{
+    margin-top: 10px;
+  }
+
+  .elixir{
+    border-radius: 8px;
+    display: grid;
+    grid-column: 1;
+    grid-row: 2;
+    background-color: #fff;
+  }
+
+  .phoenix{
+    border-radius: 8px;
+    grid-column: 2;
+    grid-row: 2;
+    background-color: #fff;
+  }
+  .erlang{
+    border-radius: 8px;
+    grid-column: 3;
+    grid-row: 2;
+    background-color: #fff;
+  }
+
+  .uptime{
+    grid-column: 1;
+    grid-row: 3;
+    background-color: #fff;
+  }
+
+  .total-i{
+    grid-column: 2;
+    grid-row: 3;
+  }
+
+  .total-o{
+    grid-column: 3;
+    grid-row: 3;
+  }
+
+
+  .bar{
+
+    grid-column: 1/4;
+    grid-row: 2;
+    background-color: rgb(188, 188, 188);
+    border-radius: 5px;
+    height: 10px;
+
+
+  }
+
+  .title{
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .fill{
+    z-index: 10;
+    grid-column: 1/4;
+    grid-row: 2;
+    background-color: indigo;
+    border-radius: 5px;
+    width: 2.5%;
+    height: 10px;
+    z-index: 2;
+  }
+
+  .datos-system{
+    grid-column: 3;
+    grid-row: 1;
+
+  }
+
+  .width{
+    width: 100%;
+  }
+
+  #atoms{
+    background-color: var(--atom-color);
+    width: 5%;
+    height: 20px;
+  }
+  #binary{
+    background-color: var(--binary-color);
+    width: 15%;
+    height: 20px;
+  }
+  #code{
+    background-color: var(--code-color);
+    width: 30%;
+    height: 20px;
+  }
+  #processes{
+    background-color: var(--processes-color);
+    width: 20%;
+    height: 20px;
+  }
+  #ETS{
+    background-color: var(--ets-color);
+    width: 10%;
+    height: 20px;
+  }
+  #other{
+    background-color: var(--other-color);
+    width: 20%;
+    height: 20px;
+  }
+
+
+  .hints{
+
+    margin: 10px;
+    height: 30px;
+    width: 100%;
+    border-radius: 4px;
+    background-color: gray;
+    opacity: 0.7;
+  }
+
+.center{
+  text-align: center;
+}
+
+  .box2{
+    background-color: #fff;
+    box-shadow: 0px 2px 4px rgba(156, 165, 187, 0.15),0 7px 20px rgba(201,209,230,.3);
+    border-radius: 8px;
+    padding: 16px;
+
+  }
+
+  .minibox{
+    border-radius: 4px;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+
+  }
+
+  .margin{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .atoms{
+    background-color: var(--atom-color);
+  }
+  .binary{
+    background-color: var(--binary-color);
+   }
+  .code{
+    background-color: var(--code-color);
+  }
+  .processes{
+    background-color: var(--processes-color);
+  }
+  .ets{
+    background-color: var(--ets-color);
+  }
+  .other{
+    background-color: var(--other-color);
+  }
+
+  .elixir-box{
+    color: white;
+    background: linear-gradient(40deg,#754fa2,#6979db);;
+  }
+
+  .phoenix-box{
+    color: white;
+    background: linear-gradient(40deg,#f26d40,#dfa843);
+  }
+
+  .dash-box{
+    color: white;
+    background: linear-gradient(40deg,#4575cf,#36a4ee);
+  }

@@ -1,0 +1,18 @@
+:root {
+    --atom-color: rgb(29, 239, 137);
+    --binary-color: rgb(0, 123, 255);
+    --code-color: rgb(125, 98, 234);
+    --processes-color: rgb(255, 157, 0);
+    --ets-color:rgb(255, 221, 0);
+    --other-color:rgb(128, 128, 124);
+    --base-unit: 8px;
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --breakpoint-xxl: 1600px;
+    --breakpoint-xxxl: 2600px;
+    --font-family-sans-serif: "LiveDashboardFont",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    --font-family-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+  }
